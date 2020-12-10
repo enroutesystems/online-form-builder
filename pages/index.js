@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import MapBuilder from '../components/MapBuilder'
+import QuestionContainerBuilder from '../components/QuestionContainerBuilder'
 
 export default function Home() {
   return (
@@ -9,10 +9,8 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <div>
-        <MapBuilder onPointAdded={(point) => console.log(point)}/>
-      </div>
+      
+      <QuestionContainerBuilder />
     </div>
   )
 }
