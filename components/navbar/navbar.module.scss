@@ -1,3 +1,10 @@
+$roboto: Roboto, sans-serif;
+
+.container {
+  margin: 0 auto;
+  width: 1200px;
+}
+
 .d-flex {
   display: flex;
   align-items: center;
@@ -5,28 +12,74 @@
 }
 
 .nav {
-  height: 72px;
+  height: 168px;
   width: 100%;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08), 0 3px 10px 0 rgba(0, 0, 0, 0.08);
   padding: 0 24px;
 }
 
+.brand {
+  font-weight: 700;
+}
+
 .btn {
-  height: 40px;
   width: 72px;
   padding: 8px 16px;
   margin-right: 24px;
   color: #000;
   text-decoration: none;
   border: 1px solid #000;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
+.btn,
 .profile {
-  height: 38px;
+  height: 40px;
 }
 
 .logo {
+  height: 48px;
+}
+
+.link {
   color: #000;
   text-decoration: none;
+}
+
+.btn,
+.link {
+  font-family: $roboto;
+}
+
+
+.sign-up {
+  background-color: #000;
+  color: #fff;
+  margin-right: 0;
+}
+
+.log-in,
+.sign-up {
+  font-weight: 500;
+}
+
+.profile {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .nav {
+    height: 72px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08), 0 3px 10px 0 rgba(0, 0, 0, 0.08);
+  }
+}
+
+@media only screen and (max-width: 425px) {
+
 }
