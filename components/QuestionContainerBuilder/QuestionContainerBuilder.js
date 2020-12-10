@@ -1,4 +1,5 @@
 import {useState, useRef} from 'react'
+import MapBuilder from '../MapBuilder'
 
 const answerTypeOptions = ['text-response', 'multiple-options', 'range', 'map']
 
@@ -22,7 +23,7 @@ const QuestionContainerBuilder = () => {
                 return <p>RangeComponent</p>
 
             case answerTypeOptions[3]:
-                return <p>MapComponent</p>
+                return <MapBuilder/>
         }
     }
 
