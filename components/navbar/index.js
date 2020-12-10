@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import styles from '../../components/navbar';
+import styles from '../navbar/navbar.module.scss';
 
 export default class Navbar extends Component {
   render() {
     return(
-      <p>hello world</p>
+      <p className={styles.nav}>hello world</p>
     );
   }
 }
