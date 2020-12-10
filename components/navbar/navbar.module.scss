@@ -1,5 +1,32 @@
+.d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .nav {
   height: 72px;
   width: 100%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08), 0 3px 10px 0 rgba(0, 0, 0, 0.08);
+  padding: 0 24px;
+}
+
+.btn {
+  height: 40px;
+  width: 72px;
+  padding: 8px 16px;
+  margin-right: 24px;
+  color: #000;
+  text-decoration: none;
+  border: 1px solid #000;
+  border-radius: 3px;
+}
+
+.profile {
+  height: 38px;
+}
+
+.logo {
+  color: #000;
+  text-decoration: none;
 }
