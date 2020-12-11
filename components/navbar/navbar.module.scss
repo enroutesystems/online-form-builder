@@ -1,9 +1,6 @@
-$roboto: Roboto, sans-serif;
-
-.container {
-  margin: 0 auto;
-  width: 1200px;
-}
+$breakpoint-desktop: 64rem;
+$breakpoint-mobile: 26.6rem;
+$font-roboto: Roboto, sans-serif;
 
 .d-flex {
   display: flex;
@@ -12,74 +9,69 @@ $roboto: Roboto, sans-serif;
 }
 
 .nav {
-  height: 168px;
   width: 100%;
-  padding: 0 24px;
+  padding-top: 6rem;
+  font-family: $font-roboto;
+
+  .container {
+    margin: 0 auto;
+    max-width: 64rem;
+    width: 100%;
+    padding: 1.5rem;
+
+    & a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.5em;
+
+      .logo {
+        height: 3rem;
+      }
+    }
+
+    .btn,
+    .profile {
+      height: 2.4rem;
+    }
+
+    .btn {
+      width: 4.5rem;
+      padding: .5rem 1rem;
+      margin-right: 1.5rem;
+      color: #000;
+      text-decoration: none;
+      //border: 1px solid #000;
+      border-radius: 5px;
+
+      &.sign-up {
+        background-color: #000;
+        //background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%);
+        color: #fff;
+        margin-right: 0;
+      }
+
+      &.sign-up {
+        font-weight: 500;
+      }
+    }
+  }
 }
 
-.brand {
-  font-weight: 700;
-}
-
-.btn {
-  width: 72px;
-  padding: 8px 16px;
-  margin-right: 24px;
-  color: #000;
-  text-decoration: none;
-  border: 1px solid #000;
-  border-radius: 5px;
-}
-
-.btn,
-.profile {
-  height: 40px;
-}
-
-.logo {
-  height: 48px;
-}
-
-.link {
-  color: #000;
-  text-decoration: none;
-}
-
-.btn,
-.link {
-  font-family: $roboto;
-}
 
 
-.sign-up {
-  background-color: #000;
-  color: #fff;
-  margin-right: 0;
-}
-
-.log-in,
-.sign-up {
-  font-weight: 500;
-}
-
-.profile {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: $breakpoint-desktop) {
   .nav {
-    height: 72px;
+    background-color: #fff;
+    padding-top: 0;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08), 0 3px 10px 0 rgba(0, 0, 0, 0.08);
   }
 }
 
-@media only screen and (max-width: 425px) {
 
-}
+
+
+
