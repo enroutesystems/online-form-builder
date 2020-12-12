@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import styles from './textarea.module.scss';
 
 export default class Textarea extends Component {
