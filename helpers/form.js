@@ -1,18 +1,4 @@
 import {firestore, ad} from '../firebaseConfig'
-import admin from 'firebase-admin'
-
-async function asyncForEach(array, callback, result) {
-
-    let results = []
-
-    for (let index = 0; index < array.length; index++) {
-        let array = await callback(array[index], result)
-        console.log('jojo', array)
-      results.push();
-    }
-
-    return results
-  }
 
 const getQuestions = async(formId) => {
     let snapshotQuestions
@@ -71,7 +57,36 @@ export const getForms = async(uid, formId) => {
     return result
 }
 
-export const createForm = async(uid, formName, isPublic, limitResponses, endDate) => {
+const createQuestion = async(formId, number, question) => {
+
+    if(!question)
+        return {message: 'Form must have at least one question'}
+
+    if(!question.type || !question.text)
+        return {message: 'Question text and type must be provided'}
+
+    let result
+
+    try{
+        result = await firestore.collection('questions').add({
+            formId,
+            number,
+            type: question.type,
+            text: question.text
+        })
+    }
+    catch{ 
+        return { message: 'Error while trying to save questions data'}
+    }
+
+    return await (await result.get()).data()
+    
+}
+
+/**arrayDate = [year, monthIndex, day, *hour, *minutes, *seconds] 
+ * hour, minutes and seconds are optionals
+*/
+export const createForm = async(uid, formName, isPublic, limitResponses, arrayDate, questions) => {
 
     if(!uid)
         return {message: 'User ID is required'}
@@ -82,21 +97,42 @@ export const createForm = async(uid, formName, isPublic, limitResponses, endDate
     const data = {
         uid, 
         formName,
-        isPublic: isPublic ? isPublic : false
+        isPublic: isPublic == 'true'
     }
 
     if(limitResponses)
         data.limitResponses = limitResponses
 
-    if(endDate){
-        if(typeof endDate === Date)
-            data.endDate = admin.firestore.Timestamp.fromDate(endDate)
-        else
-            return {message: 'Date has not the correct format'}
+    if(arrayDate){
+        try{ data.endDate = new Date(...arrayDate).toLocaleString() }
+        catch{ return {message: 'Invalid Date'} }
     }
-    
 
-    const result = await firestore.collection('forms').doc().set(data)
+    let result
+    try{ result = await firestore.collection('forms').add(data) }
+    catch{  return {message: 'Error while trying to save form data'} }
 
+    const form = await result.get()
 
+    for(let index in questions){
+        
+        const questionResult = await createQuestion(form.id, parseInt(index) + 1,questions[index])
+
+        //if there's an error registering questions in database, form and it's questions are deleted
+        if(questionResult.message){
+
+            const snapshot = await firestore.collection('questions').where('formId', '==', form.id).get()
+            const batch = firestore.batch()
+
+            snapshot.forEach(doc => batch.delete(doc.ref))
+
+            await firestore.collection('forms').doc(form.id).delete()
+
+            await batch.commit()
+
+            return { message: questionResult.message}
+        }
+    }
+
+    return await form.data()
 }
