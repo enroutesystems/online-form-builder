@@ -86,7 +86,7 @@ const createQuestion = async(formId, number, question) => {
 /**arrayDate = [year, monthIndex, day, *hour, *minutes, *seconds] 
  * hour, minutes and seconds are optionals
 */
-export const createForm = async(uid, formName, isPublic, limitResponses, arrayDate, questions) => {
+export const createForm = async(uid, formName, isPublic, limitResponses, arrayDate, arrayTime, questions) => {
 
     if(!uid)
         return {message: 'User ID is required'}
@@ -103,9 +103,33 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
     if(limitResponses)
         data.limitResponses = limitResponses
 
-    if(arrayDate){
-        try{ data.endDate = new Date(...arrayDate).toLocaleString() }
-        catch{ return {message: 'Invalid Date'} }
+    if(arrayDate.length > 0){
+        const arrayDateFinal = []
+
+        //if arrayDate has at least one not undefined value, then it's pushed to arrayDateFinal
+        const dateExists = arrayDate.some(value => value !== undefined)
+        const timeExists = arrayTime.some(value => value !== undefined)
+
+        if(dateExists){
+
+            arrayDateFinal.push(arrayDate)
+            //if arrayTime has at least one not undefined value, then it's pushed to arrayDateFinal
+
+            if(timeExists)
+                arrayDateFinal.push(arrayTime)
+
+        }
+        else{
+            if(timeExists)
+                return {message: 'Invalid Date'}
+        }
+
+
+        data.endDate = new Date(arrayDateFinal).toLocaleString() 
+
+        //if endDate is not a date
+        if(data.endDate == 'Invalid Date')            
+            return {message: 'Invalid Date'}
     }
 
     let result
