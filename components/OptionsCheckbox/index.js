@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Checkbox from './checkbox'
-import styles from './multiple-options.module.scss';
+import styles from './OptionsCheckbox.module.scss';
 
-export default class MultipleOptions extends Component {
+export default class OptionsCheckbox extends Component {
   constructor(props) {
     super(props);
 

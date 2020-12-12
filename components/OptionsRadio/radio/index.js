@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 export default class Checkbox extends Component {
   constructor(props) {
@@ -8,7 +8,7 @@ export default class Checkbox extends Component {
   render() {
     return (
       <input
-        type="checkbox"
+        type="radio"
         name={this.props.name}
         checked={this.props.checked}
         onChange={this.props.onChange} />

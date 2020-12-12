@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-export default class MultipleOptionsBuilder extends Component {
+export default class OptionsRadioBuilder extends Component {
   constructor(props) {
     super(props);
 
