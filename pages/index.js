@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import QuestionContainerBuilder from '../components/QuestionContainerBuilder'
+import MapViewer from '../components/MapViewer'
 
 export default function Home({session}) {
   return (

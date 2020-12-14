@@ -1,11 +1,41 @@
-import {firestore, ad} from '../firebaseConfig'
+import {firestore} from '../firebaseConfig'
+import questionTypes from './questionTypes'
+import collections from './collections'
+
+const getOptionAnswers = async(questionId) => {
+    const arrayOptions = []
+
+    const snapshot = await firestore.collection(collections.optionAnswers).where('questionId', '==', questionId).get()
+
+    snapshot.forEach(doc => arrayOptions.push({
+        text: doc.data().text,
+        optionAnswerId : doc.id
+    }))
+
+    return arrayOptions
+}
 
 const getQuestions = async(formId) => {
     let snapshotQuestions
+    let tempArrayQuestions = []
     let arrayQuestions = []
 
-    snapshotQuestions = await firestore.collection('questions').where('formId', '==', formId).get()
-    snapshotQuestions.forEach(doc => arrayQuestions.push(doc.data()))
+    snapshotQuestions = await firestore.collection(collections.questions).where('formId', '==', formId).get()
+    snapshotQuestions.forEach(doc => tempArrayQuestions.push(doc))
+
+    for(let doc of tempArrayQuestions){
+        let oQuestion = {...doc.data()}
+        
+        if(oQuestion.type === questionTypes.multiOptions)
+            oQuestion.options = await getOptionAnswers(doc.id)
+
+
+        delete oQuestion.formId
+        arrayQuestions.push({
+            ...oQuestion,
+            questionId: doc.id
+        })
+    }
     return arrayQuestions
 }
 
@@ -24,8 +54,9 @@ export const getForms = async(uid, formId) => {
     try{
         
         if(formId){
-            document = await firestore.collection('forms').doc(formId).get()
+            document = await firestore.collection(collections.forms).doc(formId).get()
             result = document.data()
+            result.formId = document.id
             result.questions = await getQuestions(formId)
         }
 
@@ -34,7 +65,7 @@ export const getForms = async(uid, formId) => {
             doesn't executes correctly within forEach method of snapshot.*/
             let tempForms = []
 
-            snapshotForm = await firestore.collection('forms').where('uid', '==', uid).get()
+            snapshotForm = await firestore.collection(collections.forms).where('uid', '==', uid).get()
 
             snapshotForm.forEach(doc => {
                 tempForms.push({
@@ -44,6 +75,7 @@ export const getForms = async(uid, formId) => {
             })
 
             for(let form of tempForms){
+                form.data.formId = form.id
                 form.data.questions = await getQuestions(form.id)
                 result.push(form.data)
             }
@@ -57,30 +89,122 @@ export const getForms = async(uid, formId) => {
     return result
 }
 
-const createQuestion = async(formId, number, question) => {
+/**
+ * Registers each option of options array into database
+ * @param {string} questionId 
+ * @param {array} options 
+ */
+const createOptionAnswers = async (questionId, options) => {
+    
+    for(let text of options){
+
+        try {
+            await firestore.collection(collections.optionAnswers).add({
+                questionId,
+                text
+            })
+        }
+        catch{ return {ok: false, message: 'Error while trying to save option answers'} }
+    }
+
+    return {ok: true}
+}
+
+/**
+ * Validates if the question object has the necessary properties
+ * @param {object} question 
+ */
+const validateQuestion = (question) => {
 
     if(!question)
-        return {message: 'Form must have at least one question'}
+        return {ok: false, message: 'Form must have at least one question'}
 
     if(!question.type || !question.text)
-        return {message: 'Question text and type must be provided'}
+        return {ok: false, message: 'Question text and type must be provided'}
 
-    let result
+    //if question type is multi-options
+    if(question.type === questionTypes.multiOptions){
 
+        //if question options doesn't have at least 2 options
+        if(!question.options || !question.options instanceof Array || question.options.length <= 1)
+            return {ok: false, message: 'Question of type "multi-options" must have at least two option'}
+
+    }
+
+    return {ok: true}
+}
+
+/**
+ * Registers the question into database
+ * @param {string} formId 
+ * @param {Number} number 
+ * @param {object} question 
+ */
+const createQuestion = async(formId, number, question) => {
+
+    const validation = validateQuestion(question)
+
+    if(!validation.ok)
+        return {message: validation.message}
+
+    let newQuestion
     try{
-        result = await firestore.collection('questions').add({
+        newQuestion = await firestore.collection(collections.questions).doc()
+
+        await newQuestion.set({
             formId,
             number,
             type: question.type,
             text: question.text
         })
+
+        if(question.type === questionTypes.multiOptions){
+            const resultOptionAnswers = await createOptionAnswers(newQuestion.id, question.options)
+            if(!resultOptionAnswers.ok)
+                return {message: resultOptionAnswers.message}
+        }
     }
     catch{ 
         return { message: 'Error while trying to save questions data'}
     }
 
-    return await (await result.get()).data()
+    return await (await newQuestion.get()).data()
     
+}
+
+
+/**
+ * Deletes selected form and it's questions and option answes
+ */
+const deleteForm = async (formId) => {
+    const tempMultiOptionsQuestions = []
+    const batch = firestore.batch()
+
+    //get questions with multi-options type 
+    const snapshotMultiOptionsQuestions = await firestore.collection(collections.questions)
+        .where('formId', '==', formId).where('type', '==', questionTypes.multiOptions).get()
+
+    
+    //each multi-optios questions is pushed to array
+    snapshotMultiOptionsQuestions.forEach(doc => tempMultiOptionsQuestions.push(doc))
+
+    //for each question with multi-options type
+    for(let doc of tempMultiOptionsQuestions){
+        //get option answers for current question
+        const snapshotOptionAnswers = await firestore.collection(collections.optionAnswers)
+            .where('questionId', '==', doc.id)
+
+        //delete each option of current quiestion
+        snapshotOptionAnswers.forEach(doc => batch.delete(doc.ref))
+    }
+
+    const snapshotQuestions = await firestore.collection(collections.questions).where('formId', '==', formId).get()
+
+    snapshotQuestions.forEach(doc => batch.delete(doc.ref))
+
+    await firestore.collection('forms').doc(formId).delete()
+
+    await batch.commit()
 }
 
 /**arrayDate = [year, monthIndex, day, *hour, *minutes, *seconds] 
@@ -103,6 +227,7 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
     if(limitResponses)
         data.limitResponses = limitResponses
 
+    
     if(arrayDate.length > 0){
         const arrayDateFinal = []
 
@@ -112,11 +237,11 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
 
         if(dateExists){
 
-            arrayDateFinal.push(arrayDate)
+            arrayDateFinal.push(...arrayDate)
             //if arrayTime has at least one not undefined value, then it's pushed to arrayDateFinal
 
             if(timeExists)
-                arrayDateFinal.push(arrayTime)
+                arrayDateFinal.push(...arrayTime)
 
         }
         else{
@@ -125,15 +250,15 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
         }
 
 
-        data.endDate = new Date(arrayDateFinal).toLocaleString() 
-
+        data.endDate = new Date(...arrayDateFinal).toLocaleString() 
+        
         //if endDate is not a date
         if(data.endDate == 'Invalid Date')            
             return {message: 'Invalid Date'}
     }
 
     let result
-    try{ result = await firestore.collection('forms').add(data) }
+    try{ result = await firestore.collection(collections.forms).add(data) }
     catch{  return {message: 'Error while trying to save form data'} }
 
     const form = await result.get()
@@ -145,14 +270,7 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
         //if there's an error registering questions in database, form and it's questions are deleted
         if(questionResult.message){
 
-            const snapshot = await firestore.collection('questions').where('formId', '==', form.id).get()
-            const batch = firestore.batch()
-
-            snapshot.forEach(doc => batch.delete(doc.ref))
-
-            await firestore.collection('forms').doc(form.id).delete()
-
-            await batch.commit()
+            await deleteForm(form.id)
 
             return { message: questionResult.message}
         }
