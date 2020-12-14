@@ -1,6 +1,6 @@
 export default {
     users: 'users',
-    userResponse: 'userResponse',
+    userResponses: 'userResponses',
     questions: 'questions',
     optionAnswers: 'optionAnswers',
     forms: 'forms',
