@@ -4,12 +4,19 @@ export default async(req, res) => {
 
     const email = req.body.email
 
-    if(!email)
-        return {message: 'email is required'}
+    if(!email){
+        res.statusCode = 400
+        res.json({message: 'email is required'})
+        return
+    }
     
     try{
         await auth.sendPasswordResetEmail(email)
-        return {ok: true}
+        res.statusCode = 200
+        res.json({ok: true})
     }
-    catch{ return {message: 'Error while trying to send rese password email'}}
+    catch{ 
+        res.statusCode = 500
+        res.json({message: 'Error while trying to send rese password email'})
+    }
 }
