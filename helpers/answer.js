@@ -11,15 +11,20 @@ export const getResponses = async(formId, uid) => {
     snapshotQuestions.forEach(doc => arrayQuestions.push(doc.id))
 
     for(let questionId of arrayQuestions){
-        const snapshotUserResponses = await firestore.collection(collections.userResponses)
-            .where('questionId', '==', questionId).where('uid', '==', uid).get()
+        let snapshotUserResponses = firestore.collection(collections.userResponses)
+            .where('questionId', '==', questionId)
+
+        if(uid)
+            snapshotUserResponses = await snapshotUserResponses.where('uid', '==', uid).get()
+        else
+            snapshotUserResponses = await snapshotUserResponses.get()
 
         snapshotUserResponses.forEach(doc => arrayResponses.push(doc.data()))
     }
 
     return {
         formId,
-        response: arrayResponses
+        responses: arrayResponses
     }
 }
 

@@ -4,19 +4,10 @@ export default async(req, res) => {
 
     const uid = req.query.uid
     const formId = req.query.formId
-
-    if(!uid){
-        res.statusCode = 400
-        res.json({
-            ok: false,
-            message: 'uid is required'
-        })
-    }
      
     if(!formId){
         res.statusCode = 400
         res.json({
-            ok: false,
             message: 'formId is required'
         })
     }
