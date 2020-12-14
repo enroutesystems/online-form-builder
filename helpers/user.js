@@ -7,8 +7,7 @@ const addUserToCollection = async(result) => {
     }
 
     try{
-        const document = await firestore.collection('users').add({
-            uid: result.user.uid,
+        const document = await firestore.collection('users').doc(result.user.uid).set({
             email: result.user.email
         })
 
