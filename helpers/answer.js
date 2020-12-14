@@ -1,8 +1,26 @@
 import {firestore} from '../firebaseConfig'
 import collections from './collections'
 
-export const getAnswers = async(formId, uid) => {
+export const getResponses = async(formId, uid) => {
     
+    const arrayQuestions = []
+    const arrayResponses = []
+
+    const snapshotQuestions = await firestore.collection(collections.questions).where('formId', '==', formId).get()
+
+    snapshotQuestions.forEach(doc => arrayQuestions.push(doc.id))
+
+    for(let questionId of arrayQuestions){
+        const snapshotUserResponses = await firestore.collection(collections.userResponses)
+            .where('questionId', '==', questionId).where('uid', '==', uid).get()
+
+        snapshotUserResponses.forEach(doc => arrayResponses.push(doc.data()))
+    }
+
+    return {
+        formId,
+        response: arrayResponses
+    }
 }
 
 /**
