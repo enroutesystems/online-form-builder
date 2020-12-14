@@ -1,6 +1,6 @@
 import ReactMapGL, {Marker} from 'react-map-gl'
 import {useState} from 'react'
-import style from './MapBuilder.module.scss'
+import style from './Map.module.scss'
 
 const apiPublicToken = 'pk.eyJ1IjoibWFudWVscm9kZ3p6IiwiYSI6ImNraWhsYXQxOTA0ZHcyeG16cm5nYzg1OTkifQ.80CCl2mOytRN7ORSO9Ew9Q'
 
