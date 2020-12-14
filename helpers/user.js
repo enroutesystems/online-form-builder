@@ -1,4 +1,26 @@
-import {auth} from '../firebaseConfig'
+import {auth, firestore} from '../firebaseConfig'
+
+const addUserToCollection = async(result) => {
+
+    let oDocument = {
+
+    }
+
+    try{
+        const document = await firestore.collection('users').doc(result.user.uid).set({
+            email: result.user.email
+        })
+
+        oDocument.ok = true
+        oDocument.data = document
+    }
+    catch(err){
+        oDocument.ok = false
+        oDocument.error = err
+    }
+    
+    return oDocument
+}
 
 export const firebaseLogin = async(email, password) => {
     let result
@@ -21,6 +43,13 @@ export const firebaseSignUp = async(email, password) => {
     
     try{
         result = await auth.createUserWithEmailAndPassword(email, password)
+        const oDocument = await addUserToCollection(result)
+
+        //if there's a problem saving user in users collection, then it is deleted
+        if(!oDocument.ok){
+            await auth.currentUser.delete()
+            throw {...oDocument.error}
+        }
     }
     catch(err){
         result = err
