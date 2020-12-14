@@ -1,36 +1,22 @@
-import { useState, Component } from "react";
-import { database } from "../../firebaseConfig";
+import { storageRef } from "../../firebaseConfig";
+import { useState, useRef } from 'react';
 
 export default function FileUploader() {
-    const [file, setFile] = useState(null);
-    const [url, setURL] = useState("");
+  const uploader = useRef();
 
-    function handleChange(e) {
-      setFile(e.target.files[0]);
+  function uploadFile() {
+    const file = uploader.current.files[0];
+    const name = `${+new Date()}-${file.name}`;
+    const metadata = {
+      contentType: file.type
     };
-
-    function handleUpload(e) {
-      e.preventDefault();
-      const uploadTask = database.ref().push(file);
-      uploadTask.on("state_changed", console.log, console.error, () => {
-        storage
-          .ref("images")
-          .child(file.name)
-          .getDownloadURL()
-          .then((url) => {
-            setFile(null);
-            setURL(url);
-          });
-      });
-    }
+    const task = storageRef.child(name).put(file, metadata);
+  }
 
   return (
-    <div>
-      <form onSubmit={handleUpload}>
-        <input type="file" onChange={handleChange} />
-        <button disabled={!file}>upload to firebase</button>
-      </form>
-      <img src={url} alt="" />
-    </div>
+    <>
+      <input type="file" ref={uploader} name="uploadFile"/>
+      <button onClick={uploadFile}>upload to firebase</button>
+    </>
   )
-};
+}

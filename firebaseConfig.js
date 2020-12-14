@@ -1,6 +1,7 @@
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/database'
+import 'firebase/storage'
 import firebase from 'firebase/app'
 
 
@@ -19,7 +20,6 @@ if(!firebase.apps.length)
 else
     firebase.app()
 
-export const database = firebase.database()
+export const storageRef = firebase.storage().ref();
 export const auth = firebase.auth()
 export const firestore = firebase.firestore()
-
