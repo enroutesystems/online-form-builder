@@ -25,7 +25,8 @@ const getUsersWhoAnsweredCount = (form) => {
     else{
         form.usersWhoAnswered = 0
     }
-        
+    
+    delete form.responses
     return form
 }
 
