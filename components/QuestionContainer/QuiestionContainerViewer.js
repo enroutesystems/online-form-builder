@@ -7,7 +7,7 @@ import TextArea from '../Textarea'
 const QuestionContainerViewer = ({question, onAnswerSelected}) => {
 
     const handleMapPointAdded = (location) => {
-        onAnswerSelected(question.questionId, location)
+        onAnswerSelected(question, location)
     }
 
     const answerComponent = () => {
