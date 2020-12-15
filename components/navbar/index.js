@@ -5,27 +5,44 @@ export default class Navbar extends Component {
   constructor(props) {
     super(props);
   }
+
   render() {
     return(
       <nav className={`${styles["d-flex"]} ${styles.nav}`}>
         <div className={`${styles["d-flex"]} ${styles.container}`}>
-          <a className={`${styles["d-flex"]} ${styles.brand}`} href="">BrandName</a>
+          <a className={`${styles["d-flex"]} ${styles.brand}`} href="">
+            <img src="https://img.icons8.com/ios/50/000000/test.png"/>
+            Formify
+          </a>
             {!this.props.isLogin && (
               <ul className={`${styles["d-flex"]} ${styles.menu}`}>
                 <li>
-                  <a className={`${styles.btn} ${styles["log-in"]}`} href="">Log In</a>
+                  <a className={`${styles.btn} ${styles["log-in"]}`} href="/api/auth/signin">Sign In</a>
                 </li>
                 <li>
-                  <a className={`${styles.btn} ${styles["sign-up"]}`} href="">Sign Up</a>
+                  <a className={`${styles.btn} ${styles["sign-up"]}`} href="/api/auth/signup">Sign Up</a>
                 </li>
               </ul>
             )}
             {this.props.isLogin && (
-              <a href=""><img className={styles.profile} src="/icons8-test-account-80.png" alt="user profile picture" /></a>
+              <ul className={`${styles["d-flex"]} ${styles.menu}`}>
+                <li>
+                  <a className={styles["d-flex"]} href="">
+                    {this.props.isLogin.email}
+                    <img className={styles.profile}
+                         src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png"/>
+                  </a>
+                </li>
+                <li>
+                  <a className={`${styles.btn} ${styles["sign-up"]}`} href="/api/auth/signout">Sign Out</a>
+                </li>
+              </ul>
+
             )}
         </div>
       </nav>
     );
   }
 }
+
 
