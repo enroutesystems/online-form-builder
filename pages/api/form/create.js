@@ -12,11 +12,12 @@ export default async(req, res) => {
     const minute = req.body.minute
     const second = req.body.second
     const questions = req.body.questions
+    const allowedUsers = req.body.allowedUsers
 
     let arrayDate = [year, month, day]
     let arrayTime = [hour, minute, second]
 
-    const result = await createForm(uid, formName, isPublic, limitResponses, arrayDate, arrayTime, questions)
+    const result = await createForm(uid, formName, isPublic, limitResponses, arrayDate, arrayTime, questions, allowedUsers)
 
     if(result.message){
         res.statusCode = 400

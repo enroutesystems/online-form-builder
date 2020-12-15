@@ -210,10 +210,23 @@ const deleteForm = async (formId) => {
     await batch.commit()
 }
 
+const allowUsers = async(formId, uid) => {
+
+    try{
+        await firestore.collection(collections.allowedUsers).add({
+            formId,
+            uid
+        })
+    }
+    catch{return {message: 'Error while trying to save allowed users'}}
+
+    return {ok: true}
+}
+
 /**arrayDate = [year, monthIndex, day, *hour, *minutes, *seconds] 
  * hour, minutes and seconds are optionals
 */
-export const createForm = async(uid, formName, isPublic, limitResponses, arrayDate, arrayTime, questions) => {
+export const createForm = async(uid, formName, isPublic, limitResponses, arrayDate, arrayTime, questions, allowedUsers) => {
 
     if(!uid)
         return {message: 'User ID is required'}
@@ -265,6 +278,20 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
     catch{  return {message: 'Error while trying to save form data'} }
 
     const form = await result.get()
+
+    if(allowedUsers && !isPublic){
+
+        for(uid of allowedUsers){
+
+            const allowUsersResult = await allowUsers(form.id, uid)
+
+            if(allowUsersResult.message){
+                await deleteForm(form.id)
+
+                return {message: allowUsersResult.message}
+            }
+        }
+    }
 
     for(let index in questions){
         
