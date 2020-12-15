@@ -23,7 +23,7 @@ const QuestionContainerViewer = ({question, onAnswerSelected}) => {
                 return <p>LINK component</p>
 
             case questionTypes.multiOptions:
-                return <OptionsRadioBuilder />
+                return <OptionsRadioViewer />
 
             case questionTypes.range:
                 return <p>RangeComponent</p>
