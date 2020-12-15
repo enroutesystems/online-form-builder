@@ -2,5 +2,6 @@ export default {
     text: 'text',
     map: 'map',
     multiOptions: 'multi-options',
-    range: 'range'
+    range: 'range',
+    file: 'file'
 }

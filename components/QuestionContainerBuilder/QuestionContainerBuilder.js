@@ -4,7 +4,7 @@ import OptionsRadioBuilder from '../OptionsCheckbox/OptionsCheckboxBuilder'
 import TextArea from '../Textarea'
 import questionTypes from '../../helpers/questionTypes'
 
-const answerTypeOptions = ['text-response', 'multiple-options', 'range', 'map']
+const answerTypeOptions = Object.values(questionTypes)
 
 const QuestionContainerBuilder = () => {
 
@@ -27,6 +27,9 @@ const QuestionContainerBuilder = () => {
 
             case questionTypes.map:
                 return <MapBuilder/>
+
+            case questionTypes.file:
+                return <p>File component</p>
         }
     }
 
@@ -34,10 +37,9 @@ const QuestionContainerBuilder = () => {
         <div>
             Select type of answer:
             <select ref={selectAnswerType} onChange={handleSelectChange}>
-                <option value={questionTypes.text}>Text response</option>
-                <option value={questionTypes.multiOptions}>Multiple Options</option>
-                <option value={questionTypes.range}>Range</option>
-                <option value={questionTypes.map}>Map</option>
+                {answerTypeOptions.map((option, id) => (
+                    <option value={option} key={id + option}>{option}</option>
+                ))}
             </select>
             <br/>
             <br/>
