@@ -1,6 +1,7 @@
 import {firestore} from '../firebaseConfig'
 import questionTypes from './questionTypes'
 import collections from './collections'
+import {isAllowedToAnswer} from './answer'
 
 const getOptionAnswers = async(questionId) => {
     const arrayOptions = []
@@ -45,22 +46,25 @@ export const getForms = async(uid, formId) => {
     let snapshotForm
     let document
 
-    if(uid && formId)
-        return {message: 'You must provide uid or formId but not both.'}
-
-    if(!uid && !formId)
-        return {message: 'You must provide uid or formId'}
+    if(!uid)
+        return {message: 'uid is required'}
 
     try{
         
         if(formId){
+
             document = await firestore.collection(collections.forms).doc(formId).get()
             result = document.data()
+
+            const isAllowed = await isAllowedToAnswer(result, formId, uid)
+
+            if(!isAllowed.ok && result.uid !== uid)
+                return {message: 'User is not allowed to fill this form'}
+
             result.formId = document.id
             result.questions = await getQuestions(formId)
         }
-
-        if(uid){
+        else{
             /*this will store forms' snapshot temporarily, because asynchronous functions 
             doesn't executes correctly within forEach method of snapshot.*/
             let tempForms = []
@@ -79,7 +83,6 @@ export const getForms = async(uid, formId) => {
                 form.data.questions = await getQuestions(form.id)
                 result.push(form.data)
             }
-
         }
     }
     catch(err){
