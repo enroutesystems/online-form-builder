@@ -1,5 +1,8 @@
 import {useState, useRef} from 'react'
-import MapBuilder from '../MapBuilder'
+import MapBuilder from '../Map/MapBuilder'
+import OptionsRadioBuilder from '../OptionsCheckbox/OptionsCheckboxBuilder'
+import TextArea from '../Textarea'
+import questionTypes from '../../helpers/questionTypes'
 
 const answerTypeOptions = ['text-response', 'multiple-options', 'range', 'map']
 
@@ -13,16 +16,16 @@ const QuestionContainerBuilder = () => {
     const answerComponent = () => {
 
         switch(answerType){
-            case answerTypeOptions[0]:
-                return <p>TextResponseComponent</p>
+            case questionTypes.text:
+                return <TextArea />
 
-            case answerTypeOptions[1]:
-                return <p>MultipleOptionsComponent</p>
+            case questionTypes.multiOptions:
+                return <OptionsRadioBuilder />
 
-            case answerTypeOptions[2]:
+            case questionTypes.range:
                 return <p>RangeComponent</p>
 
-            case answerTypeOptions[3]:
+            case questionTypes.map:
                 return <MapBuilder/>
         }
     }
@@ -31,10 +34,10 @@ const QuestionContainerBuilder = () => {
         <div>
             Select type of answer:
             <select ref={selectAnswerType} onChange={handleSelectChange}>
-                <option value={answerTypeOptions[0]}>Text response</option>
-                <option value={answerTypeOptions[1]}>Multiple Options</option>
-                <option value={answerTypeOptions[2]}>Range</option>
-                <option value={answerTypeOptions[3]}>Map</option>
+                <option value={questionTypes.text}>Text response</option>
+                <option value={questionTypes.multiOptions}>Multiple Options</option>
+                <option value={questionTypes.range}>Range</option>
+                <option value={questionTypes.map}>Map</option>
             </select>
             <br/>
             <br/>
