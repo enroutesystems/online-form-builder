@@ -1,6 +1,9 @@
 export default {
-    text: 'text',
+    singleLineText: 'single-line-text',
+    multipleLineText: 'multiple-line-text',
+    link: 'link',
     map: 'map',
     multiOptions: 'multi-options',
-    range: 'range'
+    range: 'range',
+    file: 'file'
 }

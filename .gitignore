@@ -32,3 +32,8 @@ yarn-error.log*
 
 # vercel
 .vercel
+.idea
+.env
+
+# test files
+test-manuel.js
