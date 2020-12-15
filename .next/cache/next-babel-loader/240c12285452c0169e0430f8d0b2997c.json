@@ -1,0 +1,1 @@
+{"ast":null,"code":"export { default } from './MapBuilder';","map":{"version":3,"sources":["/home/jubaan/Documents/online-form-builder/components/MapBuilder/index.js"],"names":["default"],"mappings":"AAAA,SAAQA,OAAR,QAAsB,cAAtB","sourcesContent":["export {default} from './MapBuilder'"]},"metadata":{},"sourceType":"module"}

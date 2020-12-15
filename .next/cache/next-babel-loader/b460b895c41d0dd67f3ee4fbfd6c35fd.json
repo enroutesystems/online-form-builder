@@ -1,0 +1,1 @@
+{"ast":null,"code":"export { default } from './QuestionContainerBuilder';","map":{"version":3,"sources":["/home/jubaan/Documents/online-form-builder/components/QuestionContainerBuilder/index.js"],"names":["default"],"mappings":"AAAA,SAAQA,OAAR,QAAsB,4BAAtB","sourcesContent":["export {default} from './QuestionContainerBuilder'"]},"metadata":{},"sourceType":"module"}
