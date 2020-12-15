@@ -57,7 +57,7 @@ const validateAnswers = (answers) => {
  * @param {string} formId 
  * @param {string} uid 
  */
-const isAllowedToAnswer = async(form, formId, uid) => {
+export const isAllowedToAnswer = async(form, formId, uid) => {
     
     let oAllowedUser = {}
 
