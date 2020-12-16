@@ -34,9 +34,15 @@ $font-roboto: Roboto, sans-serif;
     }
 
     .btn,
-    .profile {
+    .profile,
+    &.sing-out {
       height: 2.4rem;
       margin-left: 0.5rem;
+    }
+
+    & img {
+      height: 2.4rem;
+      margin-left: .5rem;
     }
 
     .btn {
@@ -58,6 +64,8 @@ $font-roboto: Roboto, sans-serif;
       &.sign-up {
         font-weight: 500;
       }
+
+
     }
   }
 }
