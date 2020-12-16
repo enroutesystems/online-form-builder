@@ -59,6 +59,30 @@ const validateAnswers = (answers) => {
  */
 export const isAllowedToAnswer = async(form, formId, uid) => {
     
+    //Checks if form has reached the limit of responses
+    if(form.limitResponses){
+
+        const responses = await (await getResponses(formId)).responses
+        let responsesCount = 0
+        
+        responses.forEach(response => {
+            if(response.questionId === responses[0].questionId)
+                responsesCount++
+
+        })
+
+        console.log(form.limitResponses, responsesCount)
+        if(form.limitResponses <= responsesCount)
+            return {message: 'This form has reached the limit of responses.'} 
+    }
+
+    //Checks if form has date limit and compares it with actual date
+    if(form.endDate){
+        
+        if(new Date() > new Date(form.endDate))
+            return {message: 'This form has reached the limit date to fill it'}
+    }
+
     let oAllowedUser = {}
 
     if(!form.isPublic){
