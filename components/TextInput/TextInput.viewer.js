@@ -4,12 +4,16 @@ import styles from './text.module.scss';
 export default class TextInput extends Component {
   constructor(props) {
     super(props);
-    onPointAdded = {}
+  }
+
+  handleKeyUp(e) {
+    this.props.onTextInput(e.target.value);
   }
 
   render() {
+    console.log(this.state);
     return (
-      <input type="text" onChange={this.handleChange} placeholder="Type something interesting..."/>
+      <input type="text" onKeyUp={(e) => this.handleKeyUp(e)} onChange={this.handleChange} placeholder="Type something interesting..."/>
     );
   }
 }

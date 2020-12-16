@@ -1,14 +1,19 @@
 import { Component } from 'react';
-import styles from './textarea.module.scss';
+import styles from './text.module.scss';
 
-export default class Textarea extends Component {
+export default class TextInput extends Component {
   constructor(props) {
     super(props);
   }
 
+  handleKeyUp(e) {
+    this.props.onTextInput(e.target.value);
+  }
+
   render() {
+    console.log(this.state);
     return (
-      <textarea onChange={this.handleChange} placeholder="Type something interesting..."/>
+      <input type="textarea" onKeyUp={(e) => this.handleKeyUp(e)} onChange={this.handleChange} placeholder="Type something interesting..."/>
     );
   }
 }
