@@ -1,7 +1,7 @@
 import questionTypes from '../../helpers/questionTypes'
 import MapViewer from '../Map/MapViewer'
 import OptionsRadioViewer from '../OptionsCheckbox/index'
-import TextInput from '../TextInput'
+import TextInput from '../TextInput/TextInput.viewer'
 import TextArea from '../Textarea'
 
 const QuestionContainerViewer = ({question, onAnswerSelected}) => {
@@ -10,14 +10,18 @@ const QuestionContainerViewer = ({question, onAnswerSelected}) => {
         onAnswerSelected(question, location)
     }
 
+    const handleOnKeyUp = (text) => {
+        onAnswerSelected(question, text)
+    }
+
     const answerComponent = () => {
 
         switch(question.type){
             case questionTypes.singleLineText:
-                return <TextInput />
+                return <TextInput onTextInput={handleOnKeyUp}/>
 
             case questionTypes.multipleLineText:
-                return <TextArea />
+                return <TextArea onTextInput={handleOnKeyUp}/>
 
             case questionTypes.url:
                 return <p>LINK component</p>
