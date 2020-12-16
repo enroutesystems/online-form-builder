@@ -58,11 +58,12 @@ const validateAnswers = (answers) => {
  * @param {string} uid 
  */
 export const isAllowedToAnswer = async(form, formId, uid) => {
-    
-    //Checks if form has reached the limit of responses
+
+    const responses = await (await getResponses(formId)).responses
+
+    //Checks if form has reached the limit of responses.
     if(form.limitResponses){
 
-        const responses = await (await getResponses(formId)).responses
         let responsesCount = 0
         
         responses.forEach(response => {
@@ -71,7 +72,6 @@ export const isAllowedToAnswer = async(form, formId, uid) => {
 
         })
 
-        console.log(form.limitResponses, responsesCount)
         if(form.limitResponses <= responsesCount)
             return {message: 'This form has reached the limit of responses.'} 
     }
@@ -85,10 +85,14 @@ export const isAllowedToAnswer = async(form, formId, uid) => {
 
     let oAllowedUser = {}
 
+    //Checks if form is public or not
     if(!form.isPublic){
 
         if(!uid)
             return {message: 'uid is required to fill this form'}
+
+        if(responses.some(answer => answer.uid === uid))
+            return {message: 'You have already filled this form.'}
 
         const snapshotAllowedUsers = await firestore.collection(collections.allowedUsers)
             .where('formId', '==', formId)
