@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import api from '../../helpers/api'
-import QuestionContainerViewer from '../../components/QuestionContainer/QuiestionContainerViewer'
+import QuestionContainerViewer from '../../components/QuestionContainer/QuestionContainerViewer'
 
 const FormView = ({form}) => {
 
@@ -28,7 +28,7 @@ const FormView = ({form}) => {
     }
 
     return(
-        <div className='mx-28 place-content-center'>
+        <div className='mx-52 place-content-center'>
            <h1 className='font-bold text-3xl text-center mb-6'>{form ? form.formName : ''}</h1> 
             {renderQuestions()}
             <button className='bg-indigo-300 border-indigo-500 rounded-sm p-3 text-white mt-5'>Send answers</button>
