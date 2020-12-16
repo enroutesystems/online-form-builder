@@ -38,9 +38,9 @@ const QuestionContainerViewer = ({question, onAnswerSelected}) => {
     }
 
     return(
-        <div>
+        <div className='card bg-gray-100 rounded shadow-md border border-gray-300 cursor-pointer my-4 p-5'>
             <div className='mt-1 mb-5'>
-                <p>{question.text}</p>
+                <p className='font-medium'>{question.text}</p>
             </div>
             <div>
                 {answerComponent()}
