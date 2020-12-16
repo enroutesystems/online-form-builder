@@ -34,7 +34,7 @@ export default class Navbar extends Component {
                   </a>
                 </li>
                 <li>
-                  <a className={`${styles.btn} ${styles["sign-up"]}`} href="/api/auth/signout">Sign Out</a>
+                  <a className={`${styles.btn} ${styles["sign-up"]}`} href="/api/auth/signout">Sign Outs</a>
                 </li>
               </ul>
 
