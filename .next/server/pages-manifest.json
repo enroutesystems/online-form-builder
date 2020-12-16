@@ -1,0 +1,17 @@
+{
+  "/_app": "pages/_app.js",
+  "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js",
+  "/api/auth/passwordReset": "pages/api/auth/passwordReset.js",
+  "/api/auth/signup": "pages/api/auth/signup.js",
+  "/api/form/answers/get": "pages/api/form/answers/get.js",
+  "/api/form/answers/send": "pages/api/form/answers/send.js",
+  "/api/form/create": "pages/api/form/create.js",
+  "/api/form/get": "pages/api/form/get.js",
+  "/api/form/statistics": "pages/api/form/statistics.js",
+  "/dashboard": "pages/dashboard.html",
+  "/": "pages/index.html",
+  "/questions": "pages/questions.html",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/404": "pages/404.html"
+}

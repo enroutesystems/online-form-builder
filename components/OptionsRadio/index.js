@@ -22,10 +22,10 @@ export default class MultipleOptions extends Component {
   render() {
     return (
       this.props.checkboxes.map(item => (
-        <label key={item.optionID}>
-          {item.name}
-          <Checkbox name={item.name} checked={this.state.checkedItems.get(item.name)} onChange={this.handleChange} />
-        </label>
+        // <label key={item.optionID}>
+        //   {item.name}
+        //   <Checkbox name={item.name} checked={this.state.checkedItems.get(item.name)} onChange={this.handleChange} />
+        // </label>
       ))
     );
   }

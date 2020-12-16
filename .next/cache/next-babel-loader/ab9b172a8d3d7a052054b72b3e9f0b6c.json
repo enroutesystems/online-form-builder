@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { formsStatistics } from '../../../helpers/statistics';\nexport default (async (req, res) => {\n  const uid = req.query.uid;\n  if (!uid) return {\n    message: 'uid is required'\n  };\n  const result = await formsStatistics(uid);\n  res.statusCode = 200;\n  res.json(result);\n});","map":null,"metadata":{},"sourceType":"module"}

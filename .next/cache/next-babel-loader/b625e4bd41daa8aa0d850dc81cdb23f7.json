@@ -1,0 +1,1 @@
+{"ast":null,"code":"export default {\n  users: 'users',\n  userResponses: 'userResponses',\n  questions: 'questions',\n  optionAnswers: 'optionAnswers',\n  forms: 'forms',\n  allowedUsers: 'allowedUsers'\n};","map":null,"metadata":{},"sourceType":"module"}
