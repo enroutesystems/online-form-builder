@@ -46,8 +46,8 @@ export const getForms = async(uid, formId) => {
     let snapshotForm
     let document
 
-    if(!uid)
-        return {message: 'uid is required'}
+    if(!uid && !formId)
+        return {message: 'uid or formId was not specified'}
 
     try{
         
