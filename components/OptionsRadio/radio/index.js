@@ -1,8 +1,14 @@
 import { Component } from 'react';
 
-export default class Checkbox extends Component {
+export default class Radio extends Component {
   constructor(props) {
     super(props);
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    this.props.onChange(this.props.optionAnswerId);
   }
 
   render() {
@@ -10,8 +16,7 @@ export default class Checkbox extends Component {
       <input
         type="radio"
         name={this.props.name}
-        checked={this.props.checked}
-        onChange={this.props.onChange} />
+        onChange={this.handleChange} />
     )
   }
 }
