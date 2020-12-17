@@ -14,6 +14,7 @@ export default class UrlInput extends Component {
     return (
         <label>http://
           <input
+            disabled={this.props.disabled}
             onKeyUp={this.handleKeyUp}
             value={this.props.children}
             type="text"
