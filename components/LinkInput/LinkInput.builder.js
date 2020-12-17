@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import UrlInput from "./urlInput";
 
 export default class LinkInputBuilder extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ export default class LinkInputBuilder extends Component {
 
   removeOption(key) {
     this.setState(function (prevState) {
-      if (prevState.linkCounter.length === 2) return;
+      if (prevState.linkCounter.length === 1) return;
 
       prevState.linkCounter.splice(key,1);
       this.props.onUrlInputs(prevState);
@@ -57,8 +58,8 @@ export default class LinkInputBuilder extends Component {
       <div>
         {this.state.linkCounter.map((value, index) => (
           <div key={index}>
-            <input onKeyUp={(e) => this.handleKeyUp(e, value, index)}/>
-            {index > 1 ? <button onClick={() => {this.removeOption(index)}}>Remove URL</button> : null}
+            <UrlInput onKeyUp={(e) => this.handleKeyUp(e, value, index)}/>
+            {index >= 1 ? <button onClick={() => {this.removeOption(index)}}>Remove URL</button> : null}
           </div>
         ))}
         <button onClick={this.addOption}>Add URL</button>
