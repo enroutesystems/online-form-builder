@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import styles from './text.module.scss';
+import styles from './textarea.module.scss';
 
 export default class TextInput extends Component {
   constructor(props) {
