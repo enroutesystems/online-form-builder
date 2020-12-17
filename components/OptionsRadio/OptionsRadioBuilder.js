@@ -35,7 +35,7 @@ export default class OptionsRadioBuilder extends Component {
   handleKeyUp(e, value, index) {
     const newValue = {
       index,
-      text: e.target.valuet,
+      text: e.target.value,
     };
     this.setState((prevState) => {
       const newArray = prevState.optionCounter.map(obj => {
