@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { jsx as _jsx } from \"react/jsx-runtime\";\nimport QuestionsComponent from '../components/questionViews';\n\nfunction Questions() {\n  return /*#__PURE__*/_jsx(\"div\", {\n    children: /*#__PURE__*/_jsx(QuestionsComponent, {})\n  });\n}\n\nexport default Questions;","map":null,"metadata":{},"sourceType":"module"}
