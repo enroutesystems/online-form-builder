@@ -19,7 +19,7 @@ export default class extends Component {
                         </div>
                         <div>
                             <a href="#/" className="text-2xl text-black focus:outline-none focus:border-none">
-                                Go to next question >
+                                Go to next question 
                             </a>
                         </div>
                     </div>
@@ -39,7 +39,7 @@ export default class extends Component {
                         </div>
                         <div>
                             <a href="#/" className="text-2xl text-black focus:outline-none focus:border-none">
-                                Go to next question >
+                                Go to next question 
                             </a>
                         </div>
                     </div>
@@ -73,7 +73,7 @@ export default class extends Component {
                         </div>
                         <div>
                             <a href="#/" className="text-2xl text-black focus:outline-none focus:border-none">
-                                Go to next question >
+                                Go to next question 
                             </a>
                         </div>
                     </div>
@@ -104,7 +104,7 @@ export default class extends Component {
                         </div>
                         <div>
                             <a href="#/" className="text-2xl text-black focus:outline-none focus:border-none">
-                                Go to next question >
+                                Go to next question 
                             </a>
                         </div>
                     </div>
@@ -127,7 +127,7 @@ export default class extends Component {
                         </div>
                         <div>
                             <a href="#/" className="text-2xl text-black focus:outline-none focus:border-none">
-                                Go to next question >
+                                Go to next question 
                             </a>
                         </div>
                     </div>
@@ -144,7 +144,7 @@ export default class extends Component {
                         </div>
                         <div>
                             <a href="#/" className="text-2xl text-black focus:outline-none focus:border-none">
-                                Go to next question >
+                                Go to next question 
                             </a>
                         </div>
                     </div>

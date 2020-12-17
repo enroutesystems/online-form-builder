@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.1.0",
+    "axios": "^0.21.0",
     "firebase": "^8.1.2",
     "firebase-admin": "^9.4.2",
     "mapbox-gl": "^2.0.0",
