@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import UrlInput from './urlInput';
-import styles from 'LinkInput.module.scss'
+import UrlInput from './urlInput';s
+import styles from './LinkInput.module.scss'
 
 export default class MultipleOptions extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ export default class MultipleOptions extends Component {
 
   render() {
     return (
-      <UrlInput />
+      <UrlInput disabled={this.props.disabled} />
     );
   }
 }
