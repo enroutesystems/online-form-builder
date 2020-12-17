@@ -2,7 +2,7 @@ import questionTypes from '../../helpers/questionTypes'
 import MapViewer from '../Map/MapViewer'
 import OptionsRadioViewer from '../OptionsCheckbox/index'
 import TextInput from '../TextInput/TextInput.viewer'
-import TextArea from '../Textarea'
+import TextArea from '../Textarea/Textarea.viewer'
 
 const QuestionContainerViewer = ({question, onAnswerSelected}) => {
 

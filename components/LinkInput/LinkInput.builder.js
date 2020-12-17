@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import UrlInput from './urlInput';s
+import UrlInput from './urlInput';
 import styles from './LinkInput.module.scss'
 
 export default class MultipleOptions extends Component {
