@@ -17,19 +17,17 @@ export default class OptionsRadioBuilder extends Component {
       let i = this.state.optionCounter.length;
 
       prevState.optionCounter.push({index: i, text: ''});
-      this.props.onRadioOptions(prevState);
+      this.props.onRadioOptions(prevState.optionCounter);
       return prevState;
     })
   }
 
   removeOption(key) {
-    this.setState(function (prevState) {
-      if (prevState.optionCounter.length === 2) return;
+    if (this.state.optionCounter.length === 2) return;
 
-      prevState.optionCounter.splice(key,1);
-      this.props.onRadioOptions(prevState);
-      return prevState;
-    })
+    this.state.optionCounter.splice(key, 1);
+    this.props.onRadioOptions(this.state.optionCounter)
+    this.setState(this.state)
   }
 
   handleKeyUp(e, value, index) {

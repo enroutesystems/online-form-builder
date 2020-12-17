@@ -1,8 +1,8 @@
 import {useState, useRef} from 'react'
 import MapBuilder from '../Map/MapBuilder'
 import OptionsRadioBuilder from '../OptionsCheckbox/OptionsCheckboxBuilder'
-import TextInput from '../TextInput'
-import TextArea from '../Textarea'
+import TextInput from '../TextInput/TextInput.viewer'
+import TextArea from '../Textarea/Textarea.viewer'
 //import FileUploader from '../fileUploader'
 import questionTypes from '../../helpers/questionTypes'
 
