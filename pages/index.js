@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import Navbar from '../components/navbar';
 import Welcome from '../components/home';
 
 export default function Home() {
@@ -12,7 +11,7 @@ export default function Home() {
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
       </Head>
 
-      <Navbar />
+      
       <Welcome/>
     </div>
   )
