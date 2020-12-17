@@ -1,4 +1,4 @@
-import QuestionContainerBuilder from '../components/QuestionContainerBuilder'
+import QuestionContainerBuilder from '../components/QuestionContainer/QuestionContainerBuilder'
 
 const Prueba = () => {
 

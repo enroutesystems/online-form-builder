@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Navbar from '../navbarDashboard'
 import ColorSelector from './colorSelector'
 import SidebarCards from './SidebarCards'
+import QuestionContainerBuilder from '../QuestionContainer/QuestionContainerBuilder'
 
 export default class extends Component {
 
@@ -57,7 +58,6 @@ export default class extends Component {
         }
 
         this.removeCard = (cardIndex) => {
-
             if (cardIndex == (this.state.cards.length - 1)) {
                 this.changeActive(0)
             }
@@ -79,9 +79,9 @@ export default class extends Component {
         }
 
         this.changeActive = (cardIndex) => {
-            this.setState(state => ({
+            this.setState({
                 activeCardIndex: cardIndex
-            }));
+            });
         }
 
         this.removeCard = this.removeCard.bind(this)
@@ -112,15 +112,10 @@ export default class extends Component {
                         </SidebarCards>
                     </div>
                     <div className="bg-gray-200 col-span-4 p-12 relative">
-
-                        <div className={`rounded-lg bg-${ this.activeCard().color }-100 shadow-lg h-full w-full mb-24`}>
+                        <div className={`rounded-lg bg-${ this.activeCard() && this.activeCard().color }-100 shadow-lg h-full w-full mb-24`}>
                             <div className="flex items-center justify-center h-full">
                                 <div className="w-3/5">
-                                    <div className="mb-12">
-                                        <input className="text-4xl bg-transparent" type="text" placeholder="What you want to ask?" />
-                                    </div>
-                                    <input className="bg-transparent border-b border-black w-full py-3 placeholder:text-black focus:ouline-none focus:border-0"
-                                        placeholder="Write your answer" type="text" disabled />
+                                    <QuestionContainerBuilder onQuestionChange={question => console.log(question)}/>
                                 </div>
                             </div>
                         </div>
