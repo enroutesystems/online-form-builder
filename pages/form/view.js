@@ -1,8 +1,9 @@
 import {useState} from 'react'
 import api from '../../helpers/api'
 import QuestionContainerViewer from '../../components/QuestionContainer/QuestionContainerViewer'
+import {getSession} from 'next-auth/client'
 
-const FormView = ({form}) => {
+const FormView = ({data}) => {
 
     const [answers, setAnswers] = useState([])
 
@@ -26,26 +27,32 @@ const FormView = ({form}) => {
     }
 
     const renderQuestions = () => {
-        if(form.message){
+        if(data.result.message){
             return(
-                <div>{form.message}</div>
+                <div>{data.result.message}</div>
             )
         }
         else{
-            return form.questions.sort((a, b) => a.number - b.number).map(question => {
-                return <QuestionContainerViewer 
-                    key={question.questionId} 
-                    question={question} 
-                    onAnswerSelected={handleAnswerSelected}/>
-            })
+            return (
+                <> 
+                    {
+                        data.result.questions.sort((a, b) => a.number - b.number).map(question => {
+                            return <QuestionContainerViewer 
+                                key={question.questionId} 
+                                question={question} 
+                                onAnswerSelected={handleAnswerSelected}/>
+                        })
+                    }
+                    <button className='bg-indigo-300 border-indigo-500 rounded-sm p-3 text-white mt-5'>Send answers</button>
+                </>
+            )
         }
     }
 
     return(
         <div className='mx-52 place-content-center'>
-           <h1 className='font-bold text-3xl text-center mb-6'>{form ? form.formName : ''}</h1> 
+           <h1 className='font-bold text-3xl text-center mb-6'>{data.result ? data.result.formName : ''}</h1> 
             {renderQuestions()}
-            <button className='bg-indigo-300 border-indigo-500 rounded-sm p-3 text-white mt-5'>Send answers</button>
         </div>
     )
 }
@@ -53,12 +60,12 @@ const FormView = ({form}) => {
 export async function getServerSideProps(context){
     
     const formId = context.query.formId
-    const uid = context.query.uid
+    const session = await getSession(context)
 
     let response
     try {
         response = await api.get('/api/form/get', {
-            uid,
+            uid: session.user.uid,
             formId
         })
     }
@@ -66,7 +73,7 @@ export async function getServerSideProps(context){
 
     return{
         props: {
-            form: response.data.result
+            data: response.data
         }
     }
 }
