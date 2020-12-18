@@ -7,8 +7,22 @@ const FormView = ({form}) => {
     const [answers, setAnswers] = useState([])
 
     const handleAnswerSelected = (question, value) => {
-
-        setAnswers([...answers, {question, value}])
+        
+        const answerIndex = answers.findIndex(answer => answer.number === question.number)
+        
+        if(answerIndex !== -1){
+            
+            setAnswers(answers.map((answer, index) => {
+                if(answerIndex === index)
+                    return {number: question.number, value}
+                else
+                    return answer
+            }))
+        }
+        else{
+            
+            setAnswers([...answers, {number: question.number, value}])
+        }
     }
 
     const renderQuestions = () => {
@@ -18,7 +32,7 @@ const FormView = ({form}) => {
             )
         }
         else{
-            return form.questions.map(question => {
+            return form.questions.sort((a, b) => a.number - b.number).map(question => {
                 return <QuestionContainerViewer 
                     key={question.questionId} 
                     question={question} 
