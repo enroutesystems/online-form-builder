@@ -18,7 +18,7 @@ export default class LinkInputBuilder extends Component {
       let i = this.state.linkCounter.length;
 
       prevState.linkCounter.push({index: i, text: ''});
-      this.props.onUrlInputs(prevState);
+      this.props.onUrlInputs(prevState.linkCounter);
       return prevState;
     })
   }
@@ -28,7 +28,7 @@ export default class LinkInputBuilder extends Component {
       if (prevState.linkCounter.length === 1) return;
 
       prevState.linkCounter.splice(key,1);
-      this.props.onUrlInputs(prevState);
+      this.props.onUrlInputs(prevState.linkCounter);
       return prevState;
     })
   }
