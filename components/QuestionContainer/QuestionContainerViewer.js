@@ -1,39 +1,41 @@
 import questionTypes from '../../helpers/questionTypes'
 import MapViewer from '../Map/MapViewer'
-import OptionsRadioViewer from '../OptionsCheckbox/index'
+import OptionsRadioViewer from '../OptionsRadio/OptionsRadio.viewer'
 import TextInput from '../TextInput/TextInput.viewer'
 import TextArea from '../Textarea/Textarea.viewer'
+import LinkInput from '../LinkInput/LinkInput.viewer'
+import Range from '../Range/Range.viewer'
 
-const QuestionContainerViewer = ({question, onAnswerSelected}) => {
+const QuestionContainerViewer = ({formId, question, onAnswerSelected}) => {
 
-    const handleMapPointAdded = (location) => {
-        onAnswerSelected(question, location)
-    }
-
-    const handleOnKeyUp = (text) => {
-        onAnswerSelected(question, text)
+    const handleAnswer = (answer) => {
+        onAnswerSelected({question, answer})
     }
 
     const answerComponent = () => {
 
         switch(question.type){
             case questionTypes.singleLineText:
-                return <TextInput onTextInput={handleOnKeyUp}/>
+                return <TextInput onTextInput={handleAnswer}/>
 
             case questionTypes.multipleLineText:
-                return <TextArea onTextInput={handleOnKeyUp}/>
+                return <TextArea onTextInput={handleAnswer}/>
 
-            case questionTypes.url:
-                return <p>LINK component</p>
+            case questionTypes.link:
+                return <LinkInput onUrlInputs={handleAnswer}/>
 
             case questionTypes.multiOptions:
-                return <OptionsRadioViewer />
+                return <OptionsRadioViewer 
+                    formId={formId}
+                    questionNumber={question.number} 
+                    radioOptions={question.options} 
+                    onSelectOption={handleAnswer}/>
 
             case questionTypes.range:
-                return <p>RangeComponent</p>
+                return <Range minValue={question.minValue} maxValue={question.maxValue} onValueChange={handleAnswer}/>
 
             case questionTypes.map:
-                return <MapViewer onPointAdded={handleMapPointAdded}/>
+                return <MapViewer onPointAdded={handleAnswer}/>
 
             case questionTypes.file:
                 return <p>File Uploader</p>
