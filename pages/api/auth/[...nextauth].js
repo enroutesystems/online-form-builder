@@ -16,8 +16,21 @@ const options = {
         }
     })
   ],
+  callbacks: {
+    jwt: async(token, user, account, profile, isNewUser) => {
+
+      user && (token.user = user)
+      return Promise.resolve(token)
+    },
+    session: async (session, user, sessionToken) => {
+
+      session.user = user.user
+      return Promise.resolve(session)
+    }
+  },
   session: {
-    jwt: true
+    jwt: true,
+
   },
   jwt:{
       secret: 'SuperSecretKey'
