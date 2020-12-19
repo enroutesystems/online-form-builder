@@ -7,8 +7,8 @@ export default class RangeBuilder extends Component {
     super(props);
 
     this.state = {
-      minValue: 0,
-      maxValue: 10
+      minValue: props.minValue || 0,
+      maxValue: props.maxValue || 10
     };
 
     this.handleKeyUp = this.handleKeyUp.bind(this);
@@ -16,14 +16,19 @@ export default class RangeBuilder extends Component {
 
   handleKeyUp(e, input) {
     if (input === 'min') {
-      this.props.onMinChange(e.target.value);
+      this.props.onMinChange({
+        ...this.state,
+        minValue: parseInt(e.target.value) || 0
+      });
       this.setState((prevState) => {
-        return { ...prevState, minValue: e.target.value}
+        return { ...prevState, minValue: parseInt(e.target.value) || 0}
       });
     } else {
-      this.props.onMaxChange(e.target.value)
+      this.props.onMaxChange({
+        ...this.state,
+        maxValue: parseInt(e.target.value) || 0})
       this.setState((prevState) => {
-        return { ...prevState, maxValue: e.target.value}
+        return { ...prevState, maxValue: parseInt(e.target.value) || 0}
       });
     }
   }
@@ -31,8 +36,8 @@ export default class RangeBuilder extends Component {
   render() {
     return (
       <>
-        <input type="number" name="range" style={{backgroundColor: 'red'}} max={+this.state.maxValue - 1} onKeyUp={(e) => {this.handleKeyUp(e, 'min')}}/>
-        <input type="number" name="range" style={{backgroundColor: 'blue'}} min={+this.state.minValue + 1} onKeyUp={(e) => {this.handleKeyUp(e, 'max')}} />
+        <input type="number" defaultValue={this.state.minValue} name="range" style={{backgroundColor: 'red'}} max={+this.state.maxValue - 1} onKeyUp={(e) => {this.handleKeyUp(e, 'min')}}/>
+        <input type="number" defaultValue={this.state.maxValue} name="range" style={{backgroundColor: 'blue'}} min={+this.state.minValue + 1} onKeyUp={(e) => {this.handleKeyUp(e, 'max')}} />
       </>
     );
   }

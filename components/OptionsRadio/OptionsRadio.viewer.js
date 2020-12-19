@@ -18,7 +18,7 @@ export default class RadioOptions extends Component {
       this.props.radioOptions.map(option => (
         <label key={option.optionAnswerId}>
           {option.text}
-          <Radio name={this.props.formId} onChange={this.handleChange} optionAnswerId={option.optionAnswerId}/>
+          <Radio name={this.props.formId + this.props.questionNumber} onChange={this.handleChange} optionAnswerId={option.optionAnswerId}/>
         </label>
       ))
     );

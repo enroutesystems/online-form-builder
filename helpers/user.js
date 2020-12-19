@@ -24,18 +24,20 @@ const addUserToCollection = async(result) => {
 
 export const firebaseLogin = async(email, password) => {
     let result
-
+    
     try{    
         result = await auth.signInWithEmailAndPassword(email, password)
     }
     catch(err){
-        console.log(err)
+        
     }
-    
     if(result)
-        return result.user
+        return {
+            email: result.user.email,
+            uid: result.user.uid,
+        }
     else
-        return null
+        return undefined
 }
 
 export const firebaseSignUp = async(email, password) => {

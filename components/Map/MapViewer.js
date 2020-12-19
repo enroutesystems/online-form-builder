@@ -15,9 +15,7 @@ const MapViewer = ({onPointAdded}) => {
     const [viewport, setViewPort] = useState({
         latitude:25.687071,
         longitude: -100.322584,
-        zoom: 10,
-        width: '100%',
-        height: '100%'
+        zoom: 10
     })
 
     const addPoint = ({lngLat: [longitude, latitude]}) => {
@@ -31,6 +29,8 @@ const MapViewer = ({onPointAdded}) => {
         <div className={style.mapContainer}>
             <ReactMapGL 
             {...viewport} 
+            width='100%'
+            height='100%'
             onClick={addPoint}
             mapboxApiAccessToken={apiPublicToken} 
             onViewportChange={(viewport) => setViewPort(viewport)}
