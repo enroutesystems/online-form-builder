@@ -4,7 +4,7 @@ export default class OptionsRadioBuilder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      optionCounter: [{index: 0, text: ''}, {index: 1, text: ''}]
+      optionCounter: props.options || [{index: 0, text: ''}, {index: 1, text: ''}]
     };
     this.addOption = this.addOption.bind(this);
     this.removeOption = this.removeOption.bind(this);
@@ -55,7 +55,7 @@ export default class OptionsRadioBuilder extends Component {
       <div>
         {this.state.optionCounter.map((value, index) => (
           <div key={index}>
-            <input onKeyUp={(e) => this.handleKeyUp(e, value, index)}/>
+            <input onKeyUp={(e) => this.handleKeyUp(e, value, index)} defaultValue={this.state.optionCounter[index].text}/>
             {index > 1 ? <button onClick={() => {this.removeOption(index)}}>Remove Option</button> : null}
           </div>
         ))}
