@@ -25,7 +25,7 @@ Home.getInitialProps = async context => {
 
   if(context && context.req){
 
-    if(session.user){
+    if(session){
 
       context.res.writeHead(302, {Location: '/dashboard'})
       context.res.end()
@@ -34,9 +34,13 @@ Home.getInitialProps = async context => {
   }
   else{
 
-    if(session.user){
+    if(session){
       Router.push('/dashboard')
     }
+  }
+
+  return {
+    
   }
 }
 
