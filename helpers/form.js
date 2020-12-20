@@ -226,7 +226,7 @@ const allowUsers = async(formId, uid) => {
 /**arrayDate = [year, monthIndex, day, *hour, *minutes, *seconds] 
  * hour, minutes and seconds are optionals
 */
-export const createForm = async(uid, formName, isPublic, limitResponses, arrayDate, arrayTime, questions, allowedUsers) => {
+export const createForm = async(uid, formName, isPublic, limitResponses, arrayDate, arrayTime, questions, allowedUsers, cardColor) => {
 
     if(!uid)
         return {message: 'User ID is required'}
@@ -234,10 +234,14 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
     if(!formName)
         return {message: 'Form name is required'}
 
+    if(!cardColor)
+        return {message: 'Form color is required'}
+
     const data = {
         uid, 
         formName,
-        isPublic: isPublic == 'true'
+        isPublic: isPublic == 'true',
+        cardColor
     }
 
     if(limitResponses)

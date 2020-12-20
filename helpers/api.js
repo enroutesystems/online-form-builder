@@ -8,7 +8,9 @@ const get = async(path, params) => {
 }
 
 const post = async(path, body) => {
-    return await axios.post(`${process.env.HOST}${path}`, body)
+    console.log(path, process.env.HOST)
+    console.log(`${process.env.HOST}${path}`)
+    return await axios.post(path, body)
 }
 
 export default {

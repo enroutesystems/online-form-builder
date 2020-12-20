@@ -30,7 +30,7 @@ export const getResponses = async(formId, uid) => {
 
 /**
  * Validates if sent answers have the correct format
- * @param {string[]} answers 
+ * @param {object[]} answers 
  */
 const validateAnswers = (answers) => {
     
