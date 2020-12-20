@@ -59,3 +59,19 @@ export const firebaseSignUp = async(email, password) => {
 
     return result
 }
+
+export const getUser = async(email) => {
+
+    const userSnapshot = await firestore.collection('users').where('email', '==', email).get()
+
+    let user
+
+    userSnapshot.forEach(doc => {
+        user = {
+            uid: doc.id,
+            email: doc.data().email
+        }
+    })
+
+    return user
+}
