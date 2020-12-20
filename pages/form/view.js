@@ -98,6 +98,7 @@ const FormView = ({data, user}) => {
                     {
                         data.result.questions.sort((a, b) => a.number - b.number).map(question => {
                             return <QuestionContainerViewer 
+                                formId={data.result.formId}
                                 key={question.questionId} 
                                 question={question} 
                                 onAnswerSelected={handleAnswerSelected}/>
