@@ -44,7 +44,7 @@ const QuestionContainerViewer = ({formId, question, onAnswerSelected}) => {
     }
 
     return(
-        <div className='card bg-gray-100 rounded shadow-md border border-gray-300 cursor-pointer my-4 p-5'>
+        <div className={`card bg-${question.cardColor}-100 rounded shadow-md border border-gray-300 cursor-pointer my-4 p-5`}>
             <div className='mt-1 mb-5'>
                 <p className='font-medium'>{question.text}</p>
             </div>
