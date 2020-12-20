@@ -32,7 +32,7 @@ const QuestionContainerViewer = ({formId, question, onAnswerSelected}) => {
                     onSelectOption={handleAnswer}/>
 
             case questionTypes.range:
-                return <Range minValue={question.minValue} maxValue={question.maxValue} onValueChange={handleAnswer}/>
+                return <Range minValue={question.range.minValue} maxValue={question.range.maxValue} onValueChange={handleAnswer}/>
 
             case questionTypes.map:
                 return <MapViewer onPointAdded={handleAnswer}/>
@@ -44,7 +44,7 @@ const QuestionContainerViewer = ({formId, question, onAnswerSelected}) => {
     }
 
     return(
-        <div className='card bg-gray-100 rounded shadow-md border border-gray-300 cursor-pointer my-4 p-5'>
+        <div className={`card bg-${question.cardColor}-100 rounded shadow-md border border-gray-300 cursor-pointer my-4 p-5`}>
             <div className='mt-1 mb-5'>
                 <p className='font-medium'>{question.text}</p>
             </div>
