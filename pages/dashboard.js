@@ -4,6 +4,7 @@ import Card from '../components/cardDashboard'
 import CardCreate from '../components/cardCreateDashboard'
 import {getSession} from 'next-auth/client'
 import api from '../helpers/api'
+import Redirect from 'next/router'
 
 export default class Dashboard extends Component {
 
@@ -11,9 +12,13 @@ export default class Dashboard extends Component {
         super(props);
     }
 
-    render() {
+    redirectToBuilder = () => {
+        Redirect.replace('/form/builder')
+    }
 
-      if(!this.props.forms.ok)
+    render() {
+        
+      if(!this.props.forms)
         return(
           <div>ERROR: ocurrió al traer los datos del servidor</div>
         )
@@ -25,7 +30,7 @@ export default class Dashboard extends Component {
                         <h2 className="text-2xl">Workspace</h2>
                     </div>
                     <div className="grid grid-cols-4 gap-5">
-                        <CardCreate></CardCreate>
+                        <CardCreate onClick={this.redirectToBuilder}></CardCreate>
                         {this.props.forms.map((form) => {
                             return <Card name={form.formName} responsesNumber={0}></Card>
                         })}
@@ -43,7 +48,7 @@ export async function getServerSideProps(context){
 
   try{
     result = await api.get('/api/form/get', {
-      
+      uid: session.user.uid
     })
   }
   catch(err){result = err.response}
