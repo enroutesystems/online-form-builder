@@ -128,6 +128,11 @@ const validateQuestion = (question) => {
     if(!question.cardColor)
         return {ok: false, message: 'Every question must have a cardColor'}
 
+    if(question.type === questionTypes.range){
+        if(!question.range || !question.range.minValue || !question.range.maxValue)
+            return {ok: false, message: 'Questions of type range must have minValue and maxValue'}
+    }
+
     //if question type is multi-options
     if(question.type === questionTypes.multiOptions){
 
@@ -157,12 +162,17 @@ const createQuestion = async(formId, number, question) => {
     try{
         newQuestion = await firestore.collection(collections.questions).doc()
 
-        await newQuestion.set({
+        const questionData = {
             formId,
             number,
             type: question.type,
             text: question.text
-        })
+        }
+
+        if(question.type === questionTypes.range)
+            questionData.range = {...question.range}
+
+        await newQuestion.set()
 
         if(question.type === questionTypes.multiOptions){
             const resultOptionAnswers = await createOptionAnswers(newQuestion.id, question.options)
