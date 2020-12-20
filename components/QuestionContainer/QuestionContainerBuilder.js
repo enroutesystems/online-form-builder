@@ -20,11 +20,11 @@ const QuestionContainerBuilder = ({type, text, options, range, onQuestionChange}
         let range
 
         if(newType === questionTypes.multiOptions){
-            options = ['', '']
+            options = [{index: 0, text: ''}, {index: 1, text: ''}]
         }
 
         if(newType === questionTypes.range)
-            range = {min: 0, max: 10}
+            range = {minValue: 0, maxValue: 10}
 
         const newQuestion = {type: newType, text: question.text}
 
@@ -48,23 +48,23 @@ const QuestionContainerBuilder = ({type, text, options, range, onQuestionChange}
     const handleRadioOptionsChange = (options) => {
         if(!(options instanceof Array))
             return
-        const newQuestion = {...question, options: options.map(option => option.text)}
+        const newQuestion = {...question, options}
 
         setQuestion(newQuestion)
         onQuestionChange(newQuestion)
     }
 
-    const handleRangeMinChange = (value) => {
+    const handleRangeMinChange = (objRange) => {
         const newQuestion = {...question}
-        newQuestion.range.min = +value
+        newQuestion.range = objRange
 
         setQuestion(newQuestion)
         onQuestionChange(newQuestion)
     }
 
-    const handleRangeMaxChange = (value) => {
+    const handleRangeMaxChange = (objRange) => {
         const newQuestion = {...question}
-        newQuestion.range.max = +value
+        newQuestion.range = objRange
 
         setQuestion(newQuestion)
         onQuestionChange(newQuestion)

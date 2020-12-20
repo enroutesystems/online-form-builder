@@ -125,6 +125,9 @@ const validateQuestion = (question) => {
     if(!question.type || !question.text)
         return {ok: false, message: 'Question text and type must be provided'}
 
+    if(!question.cardColor)
+        return {ok: false, message: 'Every question must have a cardColor'}
+
     //if question type is multi-options
     if(question.type === questionTypes.multiOptions){
 
@@ -226,7 +229,7 @@ const allowUsers = async(formId, uid) => {
 /**arrayDate = [year, monthIndex, day, *hour, *minutes, *seconds] 
  * hour, minutes and seconds are optionals
 */
-export const createForm = async(uid, formName, isPublic, limitResponses, arrayDate, arrayTime, questions, allowedUsers, cardColor) => {
+export const createForm = async(uid, formName, isPublic, limitResponses, arrayDate, arrayTime, questions, allowedUsers) => {
 
     if(!uid)
         return {message: 'User ID is required'}
@@ -234,14 +237,10 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
     if(!formName)
         return {message: 'Form name is required'}
 
-    if(!cardColor)
-        return {message: 'Form color is required'}
-
     const data = {
         uid, 
         formName,
         isPublic: isPublic == 'true',
-        cardColor
     }
 
     if(limitResponses)
@@ -283,7 +282,10 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
 
     const form = await result.get()
 
-    if(allowedUsers && !isPublic){
+    if(!isPublic){
+
+        if(!allowedUsers || allowedUsers.length < 1)
+            return {message: 'You must specify at least one allowed user for private forms'}
 
         for(uid of allowedUsers){
 

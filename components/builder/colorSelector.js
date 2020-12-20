@@ -16,8 +16,8 @@ export default class extends Component {
                             Choose a color:
                         </div>
                         <div className="grid grid-cols-8 gap-5 w-full h-full col-span-7">
-                            {this.props.colors.map((color) => {
-                                return <div className={`bg-${ color }-300 hover:bg-${ color }-400 h-8 w-full rounded cursor-pointer`} onClick={() => this.changeColor(color)}></div>
+                            {this.props.colors.map((color, index) => {
+                                return <div key={`colorSelector${index}`} className={`bg-${ color }-300 hover:bg-${ color }-400 h-8 w-full rounded cursor-pointer`} onClick={() => this.changeColor(color)}></div>
                             })}
                         </div>
                     </div>
