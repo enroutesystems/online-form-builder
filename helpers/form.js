@@ -166,7 +166,8 @@ const createQuestion = async(formId, number, question) => {
             formId,
             number,
             type: question.type,
-            text: question.text
+            text: question.text,
+            cardColor: question.cardColor
         }
 
         if(question.type === questionTypes.range)
