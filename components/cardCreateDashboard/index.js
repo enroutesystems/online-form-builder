@@ -5,7 +5,8 @@ export default class extends Component {
 
     render() {
         return(
-            <div className="group card bg-indigo-400 p-4 rounded shadow-lg group-hover:shadow-2xl cursor-pointer text-center flex items-center justify-center flex-col">
+            <div className="group card bg-indigo-400 p-4 rounded shadow-lg group-hover:shadow-2xl cursor-pointer text-center flex items-center justify-center flex-col"
+            onClick={e => this.props.onClick()}>
                 <p className="text-2xl text-white mb-4">
                     Create Form
                 </p>
