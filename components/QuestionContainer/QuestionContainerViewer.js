@@ -32,7 +32,7 @@ const QuestionContainerViewer = ({formId, question, onAnswerSelected}) => {
                     onSelectOption={handleAnswer}/>
 
             case questionTypes.range:
-                return <Range minValue={question.minValue} maxValue={question.maxValue} onValueChange={handleAnswer}/>
+                return <Range minValue={question.range.minValue} maxValue={question.range.maxValue} onValueChange={handleAnswer}/>
 
             case questionTypes.map:
                 return <MapViewer onPointAdded={handleAnswer}/>
