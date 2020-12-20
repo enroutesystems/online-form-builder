@@ -9,9 +9,9 @@ import LinkInputBuilder from '../LinkInput/LinkInput.builder'
 
 const answerTypeOptions = Object.values(questionTypes)
 
-const QuestionContainerBuilder = ({onQuestionChange}) => {
+const QuestionContainerBuilder = ({type, text, options, range, onQuestionChange}) => {
 
-    const [question, setQuestion] = useState({type: questionTypes.singleLineText, text: ''})
+    const [question, setQuestion] = useState({type: type || questionTypes.singleLineText, text: text || ''})
     const selectAnswerType = useRef()
 
     const handleQuestionTypeChange = () => {
@@ -83,10 +83,13 @@ const QuestionContainerBuilder = ({onQuestionChange}) => {
                 return <LinkInputBuilder />
 
             case questionTypes.multiOptions:
-                return <OptionsRadioBuilder onRadioOptions={handleRadioOptionsChange}/>
+                return <OptionsRadioBuilder options={options} onRadioOptions={handleRadioOptionsChange}/>
 
             case questionTypes.range:
-                return <Range onMinChange={handleRangeMinChange} onMaxChange={handleRangeMaxChange}/>
+                return <Range minValue={range ? range.minValue : undefined} 
+                        maxValue={range ? range.maxValue : undefined} 
+                        onMinChange={handleRangeMinChange} 
+                        onMaxChange={handleRangeMaxChange}/>
 
             case questionTypes.map:
                 return <MapBuilder/>
@@ -99,7 +102,7 @@ const QuestionContainerBuilder = ({onQuestionChange}) => {
     return(
         <div className='m-5'>
             <p>Select answer type:</p>
-            <select className='bg-gray-200' ref={selectAnswerType} onChange={handleQuestionTypeChange}>
+            <select className='bg-gray-200' ref={selectAnswerType} onChange={handleQuestionTypeChange} defaultValue={type}>
                 {answerTypeOptions.map((option, id) => (
                     <option value={option} key={id + option}>{option}</option>
                 ))}
@@ -110,6 +113,7 @@ const QuestionContainerBuilder = ({onQuestionChange}) => {
                     type='text' 
                     placeholder='Your question here...' 
                     onKeyUp={handleQuestionTextChange}
+                    defaultValue={question.text}
                     />
             </div>
             <div className='mt-12'>
