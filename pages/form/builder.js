@@ -1,4 +1,4 @@
-import Layout from '../components/builder/layout'
+import Layout from '../../components/builder/layout'
 import {useSession} from 'next-auth/client'
 
 
