@@ -1,8 +1,10 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Welcome from '../components/home';
+import {getSession} from 'next-auth/client'
+import Router from 'next/dist/next-server/lib/router/router';
 
-export default function Home() {
+function Home() {
   return (
     <div className={styles.container}>
       <Head>
@@ -16,3 +18,26 @@ export default function Home() {
     </div>
   )
 }
+
+Home.getInitialProps = async context => {
+
+  const session = await getSession(context)
+
+  if(context && context.req){
+
+    if(session.user){
+
+      context.res.writeHead(302, {Location: '/dashboard'})
+      context.res.end()
+    }
+    
+  }
+  else{
+
+    if(session.user){
+      Router.push('/dashboard')
+    }
+  }
+}
+
+export default Home
