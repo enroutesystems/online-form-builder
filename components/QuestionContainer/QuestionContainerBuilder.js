@@ -80,7 +80,7 @@ const QuestionContainerBuilder = ({type, text, options, range, onQuestionChange}
                 return <TextArea disabled={true}/>
 
             case questionTypes.link:
-                return <LinkInputBuilder />
+                return <LinkInputBuilder disabled={true}/>
 
             case questionTypes.multiOptions:
                 return <OptionsRadioBuilder options={options} onRadioOptions={handleRadioOptionsChange}/>
