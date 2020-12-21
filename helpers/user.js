@@ -24,6 +24,17 @@ const addUserToCollection = async(result) => {
 }
 
 export const firebaseLogin = async(email, password) => {
+
+    const user = await getUser(email)
+
+    if(!user.uid){
+        const newUser = await firebaseSignUp(email,password)
+        if(newUser.user)
+            return {uid: newUser.user.uid, email: newUser.user.email}
+        else
+            return {error: 'Error while trying to register new user. Check your password is at leas 6 characters long'}
+    }
+
     let result
     
     try{    
@@ -38,7 +49,7 @@ export const firebaseLogin = async(email, password) => {
             uid: result.user.uid,
         }
     else
-        return undefined
+        return {error: 'Email and password does not match'}
 }
 
 export const firebaseSignUp = async(email, password) => {
@@ -75,13 +86,14 @@ export const getUser = async(email, uid) => {
     let user
 
     if(userSnapshot){
-        console.log(1)
         userSnapshot.forEach(doc => {
             user = {
                 uid: doc.id,
                 email: doc.data().email
             }
         })
+
+        user = user || {}
     }
 
     if(userDoc){
