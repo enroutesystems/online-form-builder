@@ -6,8 +6,6 @@ import questionTypes from '../helpers/questionTypes'
 
 function Answers({data}) {
 
-    console.log(data)
-
     const getResponsersEmails = () => {
 
         const users = []
@@ -49,7 +47,7 @@ function Answers({data}) {
                             FORM: {data.formId}
                         </div>
                         <div className="text-gray-300">
-                            {data.responses.length} Answers
+                            {getResponsersEmails().length} Answer(s)
                         </div>
                     </div>
                 </div>
