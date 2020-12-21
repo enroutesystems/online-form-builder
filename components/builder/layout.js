@@ -166,7 +166,7 @@ export default class extends Component {
                 response = await api.post('/api/form/create', body)
             }
             catch(err) {response = err.response}
-        
+            console.log(response)
             if(!response.data.ok){
                 alert.error(response.data.result.message)
             }

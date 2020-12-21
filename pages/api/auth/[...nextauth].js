@@ -17,6 +17,12 @@ const options = {
     })
   ],
   callbacks: {
+    signIn: async(user) => {
+      if(user.error)
+        return Promise.reject(new Error(user.error))
+      else
+        return Promise.resolve(true)
+    },
     jwt: async(token, user, account, profile, isNewUser) => {
 
       user && (token.user = user)

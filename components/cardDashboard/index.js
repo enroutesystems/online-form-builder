@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
+import Redirect from 'next/router'
 
 export default class extends Component {
 
     constructor(props) {
         super(props);
     }
+    
+    handleRedirect = () => {
+        Redirect.push('/answers?formId=' + this.props.formId)
+    }
 
     render() {
         return(
-            <div className="card bg-gray-100 rounded shadow-lg border border-gray-300 grid grid-rows-3 cursor-pointer">
+            <div onClick={this.handleRedirect} className="card bg-gray-100 rounded shadow-lg border border-gray-300 grid grid-rows-3 cursor-pointer">
                 <p className="text-2xl row-span-2 p-5">
                     {this.props.name}
                 </p>

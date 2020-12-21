@@ -16,7 +16,7 @@ const getOptionAnswers = async(questionId) => {
     return arrayOptions
 }
 
-const getQuestions = async(formId) => {
+export const getQuestions = async(formId) => {
     let snapshotQuestions
     let tempArrayQuestions = []
     let arrayQuestions = []
@@ -161,7 +161,7 @@ const createQuestion = async(formId, number, question) => {
     let newQuestion
     try{
         newQuestion = await firestore.collection(collections.questions).doc()
-
+        console.log(newQuestion)
         const questionData = {
             formId,
             number,
@@ -173,7 +173,7 @@ const createQuestion = async(formId, number, question) => {
         if(question.type === questionTypes.range)
             questionData.range = {...question.range}
 
-        await newQuestion.set()
+        await newQuestion.set(questionData)
 
         if(question.type === questionTypes.multiOptions){
             const resultOptionAnswers = await createOptionAnswers(newQuestion.id, question.options)
@@ -181,7 +181,8 @@ const createQuestion = async(formId, number, question) => {
                 return {message: resultOptionAnswers.message}
         }
     }
-    catch{ 
+    catch(err){
+        console.log(err) 
         return { message: 'Error while trying to save questions data'}
     }
 
