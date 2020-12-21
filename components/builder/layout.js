@@ -35,8 +35,9 @@ export default class extends Component {
             ],
             activeCardIndex: 0,
             activeColor: "gray",
-            isFetching: false
-        }
+            isFetching: false,
+            modalActive: true
+        },
 
         this.handleQuestionChange = (question) => {
             this.setState((prevState) => {
@@ -181,7 +182,15 @@ export default class extends Component {
         }
 
         this.openModal = () => {
+            this.setState({
+                modalActive: true
+            })
+        }
 
+        this.closeModal = () => {
+            this.setState({
+                modalActive: false
+            })
         }
 
         this.removeCard = this.removeCard.bind(this)
@@ -195,15 +204,19 @@ export default class extends Component {
         return(
             <div className="min-h-screen">
                 <Navbar></Navbar>
-                <div className="grid grid-cols-5 min-h-screen">
-                    <div className="border border-r shadow-lg overflow-y-scroll">
-                        <div className='flex'>
-                            <input ref={this.titleInput} className=' my-5 h-10 w-10/12' placeholder='Your form name...' />
-                            <div className='flex hover: cursor-pointer' onClick={this.openModal}>
-                                <FaCog className='self-center'/>
+                <div className="grid grid-cols-5 h-screen">
+                    <div className="border border-r shadow-lg overflow-y-scroll z-10">
+                        <div className='flex items-center justify-between px-4'>
+                            <input ref={this.titleInput}
+                                className='my-5 h-10 w-10/12 bg-transparent font-semibold focus:outline-none focus:border-b focus:border-red'
+                                placeholder='Enter the form name...' />
+                            <div>
+                                <div className='flex hover: cursor-pointer' onClick={this.openModal}>
+                                    <FaCog className='self-center'/>
+                                </div>
                             </div>
                         </div>
-                        <div className="mx-4 my-8 flex items-center justify-between">
+                        <div className="mx-4 mb-4 mt-2 flex items-center justify-between">
                             <div className="font-semibold text-lg">
                                 Questions
                             </div>
@@ -240,6 +253,94 @@ export default class extends Component {
 
                         <ColorSelector colors={ this.state.colors } changeColor={ this.changeColor.bind(this) }></ColorSelector>
 
+                    </div>
+                </div>
+                <div className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-700 opacity-100 z-20 ${ this.state.modalActive ? '' : 'hidden' }`}>
+                    <div className="bg-white border border-gray-200 rounded w-1/2 h-1/2 opacity-100">
+                        <div className="overflow-y-scroll h-full">
+                        <div className="border-b border-gray-200 p-4 flex items-center justify-between">
+                            <div className="text-lg font-semibold">
+                                Form settings
+                            </div>
+                            <div className="text-blue-400 text-sm cursor-pointer" onClick={ this.closeModal }>
+                                Close
+                            </div>
+                        </div>
+                        <div className="w-full p-5">
+                            <div classname="font-semibold">
+                                Base Settings
+                            </div>
+                            <div className="my-6 space-y-2 text-gray-500">
+                                <label className="flex items-center space-x-2 text-sm">
+                                    <input type="checkbox" className="appearance-none bg-white border-2 rounded h-5 w-5 border-gray-300 checked:bg-blue-500 checked:border-transparent " />
+                                    <span>
+                                        Is public
+                                    </span>
+                                </label>
+                                <label className="flex items-center space-x-2 text-sm">
+                                    <input type="checkbox" className="appearance-none bg-white border-2 rounded h-5 w-5 border-gray-300 checked:bg-blue-500 checked:border-transparent" />
+                                    <span>
+                                        Date limit?
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div className="mt-8">
+                            <div classname="font-semibold">
+                                User Settings
+                            </div>
+                            <div className="my-6">
+                                <label className="flex items-center space-x-2 text-xs text-gray-500">
+                                    <input type="checkbox" className="appearance-none bg-white border-2 rounded h-5 w-5 border-gray-300 checked:bg-blue-500 checked:border-transparent" />
+                                    <span>
+                                        Limited to allowed users?
+                                    </span>
+                                </label>
+                            </div>
+                            <div className="my-4 grid grid-cols-10 gap-2">
+                                <input type="text" className="px-3 border border-gray-300 text-sm rounded col-span-9 p-1 focus:outline-none" placeholder="Enter the user email..."/>
+                                <div className="bg-blue-400 rounded text-white p-2 text-center text-sm">
+                                    Add
+                                </div>
+                            </div>
+                            <div className="border rounded bg-white text-xs">
+                                <div className="grid grid-cols-10 border-b">
+                                    <div className="text-gray-500 py-2 px-3 border-r col-span-7">
+                                        Email
+                                    </div>
+                                    <div className="col-span-2 border-r text-gray-500 px-3 py-2 text-center">
+                                        Send invite?
+                                    </div>
+                                    <div className="text-gray-500 px-3 py-2 text-center">
+                                        Active?
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-10 border-b">
+                                    <div className="text-gray-800 py-2 px-3 border-r col-span-7 border-r flex items-center">
+                                        example@gmail.com
+                                    </div>
+                                    <div className="col-span-2 px-3 py-2 border-r text-blue-500 font-semibold flex items-center justify-center cursor-pointer">
+                                        Invite
+                                    </div>
+                                    <div className="flex items-center justify-center p-2">
+                                        <div className="h-5 w-5 bg-green-500 rounded"> </div>
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-10">
+                                    <div className="text-gray-800 py-2 px-3 border-r col-span-7 border-r flex items-center">
+                                        user@example.com
+                                    </div>
+                                    <div className="col-span-2 px-3 py-2 border-r text-blue-500 font-semibold flex items-center justify-center cursor-pointer">
+                                        Invite
+                                    </div>
+                                    <div className="flex items-center justify-center p-2">
+                                        <div className="h-5 w-5 bg-gray-300 rounded"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>

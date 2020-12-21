@@ -49,12 +49,14 @@ export default class extends Component {
                             </div>
                         </div>)
                 })}
-                <button 
-                className='bg-indigo-800 border-indigo-500 rounded-sm p-3 text-white mt-5 min-w-50'
-                onClick={this.submitForm}
-                >
-                    {this.props.isFetching ? <MoonLoader size={20}/> : 'Submit form'}
-                </button>
+                <div className="px-4 pt-4 pb-6">
+                    <button 
+                        className='bg-blue-500 rounded p-3 text-white mt-5 w-full text-sm hover:bg-blue-600'
+                        onClick={this.submitForm}
+                    >
+                        {this.props.isFetching ? <MoonLoader size={20}/> : 'Publish'}
+                    </button>
+                </div>
             </div>
         );
     }

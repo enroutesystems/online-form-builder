@@ -34,7 +34,7 @@ export default class extends Component {
                             {this.state.name}
                         </div>
                     </div>
-                    <div className={`absolute top-12 right-0 border mt-2 bg-white py-3 px-6 text-sm text-gray-500 rounded w-36 ${this.state.activeNavbar ? '' : 'hidden'}`}>
+                    <div className={`absolute top-12 right-0 border mt-2 bg-white py-3 px-6 text-sm text-gray-500 rounded w-36 z-10 ${this.state.activeNavbar ? '' : 'hidden'}`}>
                         {this.state.navbarOptions.map((option) => {
                             return <div className="my-3">
                                 <a href="#/" className="hover:text-gray-700">

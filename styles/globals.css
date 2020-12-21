@@ -46,5 +46,6 @@ body {
     background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
 }
