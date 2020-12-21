@@ -1,3 +1,4 @@
+import collections from './collections'
 import {auth, firestore} from '../firebaseConfig'
 
 const addUserToCollection = async(result) => {
@@ -60,18 +61,39 @@ export const firebaseSignUp = async(email, password) => {
     return result
 }
 
-export const getUser = async(email) => {
+export const getUser = async(email, uid) => {
 
-    const userSnapshot = await firestore.collection('users').where('email', '==', email).get()
+    let userSnapshot
+    let userDoc
+
+    if(email)
+        userSnapshot = await firestore.collection(collections.users).where('email', '==', email).get()
+
+    if(uid)
+        userDoc = await firestore.collection(collections.users).doc(uid).get()
 
     let user
 
-    userSnapshot.forEach(doc => {
-        user = {
-            uid: doc.id,
-            email: doc.data().email
+    if(userSnapshot){
+        console.log(1)
+        userSnapshot.forEach(doc => {
+            user = {
+                uid: doc.id,
+                email: doc.data().email
+            }
+        })
+    }
+
+    if(userDoc){
+
+        try{
+            user = {
+                uid,
+                email: userDoc.data().email
+            }
         }
-    })
+        catch{user = {}}
+    }
 
     return user
 }

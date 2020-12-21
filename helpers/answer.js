@@ -1,18 +1,17 @@
 import {firestore} from '../firebaseConfig'
 import collections from './collections'
+import {getUser} from './user'
+import {getQuestions} from './form'
 
 export const getResponses = async(formId, uid) => {
-    
-    const arrayQuestions = []
+
     const arrayResponses = []
 
-    const snapshotQuestions = await firestore.collection(collections.questions).where('formId', '==', formId).get()
+    const questions = await getQuestions(formId)
 
-    snapshotQuestions.forEach(doc => arrayQuestions.push(doc.id))
-
-    for(let questionId of arrayQuestions){
+    for(let question of questions){
         let snapshotUserResponses = firestore.collection(collections.userResponses)
-            .where('questionId', '==', questionId)
+            .where('questionId', '==', question.questionId)
 
         if(uid)
             snapshotUserResponses = await snapshotUserResponses.where('uid', '==', uid).get()
@@ -22,9 +21,18 @@ export const getResponses = async(formId, uid) => {
         snapshotUserResponses.forEach(doc => arrayResponses.push(doc.data()))
     }
 
+    for(let index in arrayResponses){
+        let responserUid = arrayResponses[index].uid || undefined 
+        arrayResponses[index].user = responserUid ? await getUser(undefined, arrayResponses[index].uid) : {email: 'Anonymous'}
+        arrayResponses[index].question = questions[index]
+
+        delete arrayResponses[index].questionId
+        delete arrayResponses[index].uid
+    }
+
     return {
         formId,
-        responses: arrayResponses
+        responses: arrayResponses.sort((a, b) => a.question.number - b.question.number)
     }
 }
 
