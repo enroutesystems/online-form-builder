@@ -32,7 +32,7 @@ export default class Dashboard extends Component {
                     <div className="grid grid-cols-4 gap-5">
                         <CardCreate onClick={this.redirectToBuilder}></CardCreate>
                         {this.props.forms.map((form) => {
-                            return <Card name={form.formName} responsesNumber={0}></Card>
+                            return <Card formId={form.formId} name={form.formName} responsesNumber={0}></Card>
                         })}
                     </div>
                 </div>
