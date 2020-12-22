@@ -12,8 +12,6 @@ function Home() {
         <link rel="icon" href="/favicon.ico" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
       </Head>
-
-      
       <Welcome/>
     </div>
   )
@@ -30,7 +28,7 @@ Home.getInitialProps = async context => {
       context.res.writeHead(302, {Location: '/dashboard'})
       context.res.end()
     }
-    
+
   }
   else{
 
@@ -40,7 +38,7 @@ Home.getInitialProps = async context => {
   }
 
   return {
-    
+
   }
 }
 
