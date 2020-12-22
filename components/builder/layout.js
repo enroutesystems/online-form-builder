@@ -136,6 +136,13 @@ export default class extends Component {
 
             for(let cardIdx in this.state.cards){
 
+                if(this.state.cards[cardIdx].type === questionTypes.multiOptions 
+                    && this.state.cards[cardIdx].options.some(option => option.text.trim() === '')){
+
+                    alert.warning(`Multi-option card with number ${+cardIdx + 1} has an option without text. Please do not leave an option empty.`)
+                    return
+                }
+
                 if(this.state.cards[cardIdx].question.trim() === ''){
                     alert.warning(`Card number ${+cardIdx + 1} doesn't have question`)
                     return
