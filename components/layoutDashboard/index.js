@@ -6,7 +6,6 @@ import Card from '../cardDashboard'
 import CardCreate from '../cardCreateDashboard'
 
 const LayoutDashboard = ({ session, forms }) => {
-    console.log(forms)
     return(
         <div className="min-h-screen auto-rows-auto">
             <Navbar></Navbar>

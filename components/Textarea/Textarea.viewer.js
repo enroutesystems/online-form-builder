@@ -11,7 +11,6 @@ export default class TextInput extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <textarea disabled={this.props.disabled} onKeyUp={(e) => this.handleKeyUp(e)} onChange={this.handleChange} rows="4" cols="50" placeholder="Type something interesting..."></textarea>
     );

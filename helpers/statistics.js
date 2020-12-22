@@ -15,7 +15,7 @@ const getForms = async(uid) => {
 }
 
 const getUsersWhoAnsweredCount = (form) => {
-    console.log(form)
+
     if(form.responses[0]){
 
         let counter = form.responses.filter(response => response.questionId === form.responses[0].questionId).length
@@ -25,7 +25,7 @@ const getUsersWhoAnsweredCount = (form) => {
     else{
         form.usersWhoAnswered = 0
     }
-    
+
     delete form.responses
     return form
 }

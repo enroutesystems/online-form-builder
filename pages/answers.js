@@ -7,8 +7,6 @@ import questionTypes from '../helpers/questionTypes'
 
 function Answers({data}) {
 
-    console.log(data)
-
     const getResponsersEmails = () => {
 
         const users = []
@@ -28,7 +26,7 @@ function Answers({data}) {
         const arrayQuestion = []
 
         data.responses.map(response => {
-            
+
             if(arrayQuestionId.includes(response.question.questionId))
                 return response
             else{
@@ -111,7 +109,7 @@ export const getServerSideProps = async(context) => {
         response = await api.get('/api/form/answers/get', params)
     }
     catch(err){ response = err.response}
-    console.log(response.data)
+
     return {
         props: {
             data: response.data

@@ -19,7 +19,6 @@ export default class OptionsCheckboxBuilder extends Component {
       let i = prevState.optionCounter[prevState.optionCounter.length - 1] + 1;
 
       prevState.optionCounter.push(i);
-      console.log(prevState)
       return prevState;
     })
   }

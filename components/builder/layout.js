@@ -135,7 +135,7 @@ export default class extends Component {
             }
 
             for(let cardIdx in this.state.cards){
-                
+
                 if(this.state.cards[cardIdx].question.trim() === ''){
                     alert.warning(`Card number ${+cardIdx + 1} doesn't have question`)
                     return
@@ -151,7 +151,7 @@ export default class extends Component {
                 alert.warning('Limit responses must be at least 1')
                 return
             }
-            
+
             this.setState({
                 ...this.state,
                 isFetching: true
@@ -161,9 +161,9 @@ export default class extends Component {
                 uid: this.props.user.uid,
                 formName: this.titleInput.current.value.trim(),
                 isPublic: this.state.formIsPublic,
-                year: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('-')[0]) : undefined, 
-                month: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('-')[1]) - 1 : undefined ,
-                day: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('-')[2]) : undefined,
+                year: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('-')[0]) : undefined,
+                month: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('.')[1]) - 1 : undefined ,
+                day: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('.')[2]) : undefined,
                 allowedUsers: !this.state.formIsPublic ? this.state.allowedUsers : undefined,
                 limitResponses: this.state.formHasLimitResponses ? this.state.limitResponses : undefined,
                 questions: this.state.cards.map(card => {
@@ -176,14 +176,13 @@ export default class extends Component {
                     return card
                 })
             }
-            
-            let response
 
+            let response
+            console.log(body)
             try{
                 response = await api.post('/api/form/create', body)
             }
             catch(err) {response = err.response}
-            
             if(!response.data.ok){
                 alert.error(response.data.result.message)
             }
@@ -235,7 +234,7 @@ export default class extends Component {
         }
 
         this.handleformHasLimitResponses = (e) => {
-            
+
             this.setState(prevState => ({...prevState, formHasLimitResponses: e.target.checked}))
         }
 
@@ -297,9 +296,9 @@ export default class extends Component {
                         <div className={`rounded-lg bg-${ this.activeCard() && this.activeCard().color }-100 shadow-lg h-full w-full mb-24`}>
                             <div className="flex items-center justify-center h-full">
                                 <div className="w-3/5">
-                                    { this.activeCard() && 
-                                        <QuestionContainerBuilder key={this.state.activeCardIndex} 
-                                        type={this.activeCard().type} 
+                                    { this.activeCard() &&
+                                        <QuestionContainerBuilder key={this.state.activeCardIndex}
+                                        type={this.activeCard().type}
                                         text={this.activeCard().question}
                                         options={this.activeCard().options}
                                         range={this.activeCard().range}
