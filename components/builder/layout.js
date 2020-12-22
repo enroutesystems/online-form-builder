@@ -131,7 +131,7 @@ export default class extends Component {
             }
 
             for(let cardIdx in this.state.cards){
-                
+
                 if(this.state.cards[cardIdx].question.trim() === ''){
                     alert.warning(`Card number ${+cardIdx + 1} doesn't have question`)
                     return
@@ -152,7 +152,7 @@ export default class extends Component {
                 uid: this.props.user.uid,
                 formName: this.titleInput.current.value.trim(),
                 isPublic: this.state.formIsPublic,
-                year: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('-')[0]) : undefined, 
+                year: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('-')[0]) : undefined,
                 month: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('.')[1]) - 1 : undefined ,
                 day: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('.')[2]) : undefined,
                 allowedUsers: !this.state.formIsPublic ? this.state.allowedUsers : undefined,
@@ -173,7 +173,7 @@ export default class extends Component {
                 response = await api.post('/api/form/create', body)
             }
             catch(err) {response = err.response}
-            console.log(response)
+
             if(!response.data.ok){
                 alert.error(response.data.result.message)
             }
@@ -280,9 +280,9 @@ export default class extends Component {
                         <div className={`rounded-lg bg-${ this.activeCard() && this.activeCard().color }-100 shadow-lg h-full w-full mb-24`}>
                             <div className="flex items-center justify-center h-full">
                                 <div className="w-3/5">
-                                    { this.activeCard() && 
-                                        <QuestionContainerBuilder key={this.state.activeCardIndex} 
-                                        type={this.activeCard().type} 
+                                    { this.activeCard() &&
+                                        <QuestionContainerBuilder key={this.state.activeCardIndex}
+                                        type={this.activeCard().type}
                                         text={this.activeCard().question}
                                         options={this.activeCard().options}
                                         range={this.activeCard().range}

@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 
 export default class RangeBuilder extends Component {
@@ -12,6 +11,10 @@ export default class RangeBuilder extends Component {
     };
 
     this.handleKeyUp = this.handleKeyUp.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.onMinChange(this.props.state);
   }
 
   handleKeyUp(e, input) {
@@ -36,8 +39,8 @@ export default class RangeBuilder extends Component {
   render() {
     return (
       <>
-        <input className="w-1/2 h-8 border-gray-300" type="number" defaultValue={this.state.minValue} name="range" max={+this.state.maxValue - 1} onKeyUp={(e) => {this.handleKeyUp(e, 'min')}}/>
-        <input className="w-1/2 h-8 border-gray-300" type="number" defaultValue={this.state.maxValue} name="range" min={+this.state.minValue + 1} onKeyUp={(e) => {this.handleKeyUp(e, 'max')}} />
+        Min: <input className="w-20 px-3 mr-2 h-8 border-gray-300" type="number" defaultValue={this.state.minValue} name="range" max={+this.state.maxValue - 1} onKeyUp={(e) => {this.handleKeyUp(e, 'min')}}/>
+        Max: <input className="w-20 px-3 h-8 border-gray-300" type="number" defaultValue={this.state.maxValue} name="range" min={+this.state.minValue + 1} onKeyUp={(e) => {this.handleKeyUp(e, 'max')}} />
       </>
     );
   }

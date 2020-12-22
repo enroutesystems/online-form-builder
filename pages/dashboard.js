@@ -4,8 +4,6 @@ import CardCreate from '../components/cardCreateDashboard'
 import {getSession} from 'next-auth/client'
 import api from '../helpers/api'
 import Redirect from 'next/router'
-import NavbarDashboard from "../components/navbarDashboard";
-
 export default class Dashboard extends Component {
 
     constructor(props) {
@@ -25,7 +23,6 @@ export default class Dashboard extends Component {
       else
         return(
           <>
-          <NavbarDashboard />
             <div className="min-h-screen auto-rows-auto">
                 <div className="p-8 bg-gray-100 min-h-screen">
                     <div className="mb-6">

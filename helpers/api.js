@@ -8,8 +8,6 @@ const get = async(path, params) => {
 }
 
 const post = async(path, body) => {
-    console.log(path, process.env.HOST)
-    console.log(`${process.env.HOST}${path}`)
     return await axios.post(path, body)
 }
 

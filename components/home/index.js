@@ -23,7 +23,6 @@ export default class Welcome extends Component {
     //     perPage: 10,
     //     orientation: 'landscape',
     // }).then((result) => {
-    //       console.log(result.response.results[0].urls.small)
     //       this.setState({
     //         photo: result.response.results[0].urls.small
     //       })
@@ -32,7 +31,6 @@ export default class Welcome extends Component {
       query: 'vote',
       count: 1
     }).then((result) => {
-      console.log(result)
       this.setState({
         photo: result.response[0].urls.small
       })

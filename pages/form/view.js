@@ -13,11 +13,11 @@ const FormView = ({data, user}) => {
     const [formCompleted, setFormCompleted] = useState(false)
 
     const handleAnswerSelected = (selected) => {
-        
+
         const answerIndex = answers.findIndex(answer => answer.number === selected.question.number)
-        
+
         if(answerIndex !== -1){
-            
+
             setAnswers(answers.map((answer, index) => {
                 if(answerIndex === index)
                     return {number: selected.question.number, value: selected.answer}
@@ -36,7 +36,7 @@ const FormView = ({data, user}) => {
     const getAnswersParam = () => {
         const arrayAnswers = []
         for(let answerIdx in answers){
-            
+
             let answerObject = {questionId: data.result.questions[answerIdx].questionId}
 
             //if answer has type single-line-text, multiple-line-text or range
@@ -64,7 +64,7 @@ const FormView = ({data, user}) => {
 
         const arrayAnswers = getAnswersParam()
 
-        let response 
+        let response
         try{
             response = await api.post('/api/form/answers/send', {
                 uid: user.uid,
@@ -73,8 +73,6 @@ const FormView = ({data, user}) => {
             })
         }
         catch(err){ response = err.response}
-
-        console.log(response)
 
         if(response.data.ok){
             alert.success("Questions submited successfully")
@@ -94,17 +92,17 @@ const FormView = ({data, user}) => {
         }
         else{
             return (
-                <> 
+                <>
                     {
                         data.result.questions.sort((a, b) => a.number - b.number).map(question => {
-                            return <QuestionContainerViewer 
+                            return <QuestionContainerViewer
                                 formId={data.result.formId}
-                                key={question.questionId} 
-                                question={question} 
+                                key={question.questionId}
+                                question={question}
                                 onAnswerSelected={handleAnswerSelected}/>
                         })
                     }
-                    <button 
+                    <button
                     className='bg-indigo-800 border-indigo-500 rounded-sm p-3 text-white mt-5 min-w-50'
                     onClick={sendAnswers}
                     >
@@ -117,16 +115,16 @@ const FormView = ({data, user}) => {
 
     return(
         <div className='mx-52 place-content-center'>
-           <h1 className='font-bold text-3xl text-center mb-6'>{data.result ? data.result.formName : ''}</h1> 
-            {!formCompleted 
-                ? renderQuestions() 
+           <h1 className='font-bold text-3xl text-center mb-6'>{data.result ? data.result.formName : ''}</h1>
+            {!formCompleted
+                ? renderQuestions()
                 : <div className='justify-center text-center'>Thank you for your time! <span>😊</span></div>}
         </div>
     )
 }
 
 export async function getServerSideProps(context){
-    
+
     const formId = context.query.formId
     const session = await getSession(context)
 

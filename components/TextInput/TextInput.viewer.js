@@ -11,7 +11,6 @@ export default class TextInput extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <input type="text" disabled={this.props.disabled} onKeyUp={(e) => this.handleKeyUp(e)} onChange={this.handleChange} placeholder="Type something interesting..."/>
     );
