@@ -149,7 +149,7 @@ export default class extends Component {
                 alert.warning('Limit responses must be at least 1')
                 return
             }
-            
+
             this.setState({
                 ...this.state,
                 isFetching: true
@@ -174,9 +174,9 @@ export default class extends Component {
                     return card
                 })
             }
-            
-            let response
 
+            let response
+            console.log(body)
             try{
                 response = await api.post('/api/form/create', body)
             }
@@ -235,7 +235,7 @@ export default class extends Component {
         }
 
         this.handleformHasLimitResponses = (e) => {
-            
+
             this.setState(prevState => ({...prevState, formHasLimitResponses: e.target.checked}))
         }
 

@@ -24,10 +24,10 @@ export const getQuestions = async(formId) => {
 
     snapshotQuestions = await firestore.collection(collections.questions).where('formId', '==', formId).get()
     snapshotQuestions.forEach(doc => tempArrayQuestions.push(doc))
-    
+
     for(let doc of tempArrayQuestions){
         let oQuestion = {...doc.data()}
-        
+
         if(oQuestion.type === questionTypes.multiOptions)
             oQuestion.options = await getOptionAnswers(doc.id)
 
@@ -51,7 +51,7 @@ export const getForms = async(uid, formId) => {
         return {message: 'uid or formId was not specified'}
 
     try{
-        
+
         if(formId){
 
             document = await firestore.collection(collections.forms).doc(formId).get()
@@ -69,7 +69,7 @@ export const getForms = async(uid, formId) => {
             result.questions = await getQuestions(formId)
         }
         else{
-            /*this will store forms' snapshot temporarily, because asynchronous functions 
+            /*this will store forms' snapshot temporarily, because asynchronous functions
             doesn't executes correctly within forEach method of snapshot.*/
             let tempForms = []
 
@@ -92,17 +92,17 @@ export const getForms = async(uid, formId) => {
     catch(err){
         console.log('ERROR', err)
     }
-    
+
     return result
 }
 
 /**
  * Registers each option of options array into database
- * @param {string} questionId 
- * @param {array} options 
+ * @param {string} questionId
+ * @param {array} options
  */
 const createOptionAnswers = async (questionId, options) => {
-    
+
     for(let text of options){
 
         try {
@@ -119,7 +119,7 @@ const createOptionAnswers = async (questionId, options) => {
 
 /**
  * Validates if the question object has the necessary properties
- * @param {object} question 
+ * @param {object} question
  */
 const validateQuestion = (question) => {
 
@@ -133,7 +133,7 @@ const validateQuestion = (question) => {
         return {ok: false, message: 'Every question must have a cardColor'}
 
     if(question.type === questionTypes.range){
-        if(!question.range || !question.range.minValue || !question.range.maxValue)
+        if(!question.range || question.range.minValue === undefined || question.range.maxValue === undefined)
             return {ok: false, message: 'Questions of type range must have minValue and maxValue'}
     }
 
@@ -151,9 +151,9 @@ const validateQuestion = (question) => {
 
 /**
  * Registers the question into database
- * @param {string} formId 
- * @param {Number} number 
- * @param {object} question 
+ * @param {string} formId
+ * @param {Number} number
+ * @param {object} question
  */
 const createQuestion = async(formId, number, question) => {
 
@@ -165,7 +165,7 @@ const createQuestion = async(formId, number, question) => {
     let newQuestion
     try{
         newQuestion = await firestore.collection(collections.questions).doc()
-        
+
         const questionData = {
             formId,
             number,
@@ -186,12 +186,12 @@ const createQuestion = async(formId, number, question) => {
         }
     }
     catch(err){
-        console.log(err) 
+        console.log(err)
         return { message: 'Error while trying to save questions data'}
     }
 
     return await (await newQuestion.get()).data()
-    
+
 }
 
 
@@ -202,11 +202,11 @@ const deleteForm = async (formId) => {
     const tempMultiOptionsQuestions = []
     const batch = firestore.batch()
 
-    //get questions with multi-options type 
+    //get questions with multi-options type
     const snapshotMultiOptionsQuestions = await firestore.collection(collections.questions)
         .where('formId', '==', formId).where('type', '==', questionTypes.multiOptions).get()
 
-    
+
     //each multi-optios questions is pushed to array
     snapshotMultiOptionsQuestions.forEach(doc => tempMultiOptionsQuestions.push(doc))
 
@@ -247,27 +247,27 @@ const allowUsers = async(formId, email) => {
     return {ok: true}
 }
 
-/**arrayDate = [year, monthIndex, day, *hour, *minutes, *seconds] 
+/**arrayDate = [year, monthIndex, day, *hour, *minutes, *seconds]
  * hour, minutes and seconds are optionals
 */
 export const createForm = async(uid, formName, isPublic, limitResponses, arrayDate, arrayTime, questions, allowedUsers) => {
 
     if(!uid)
         return {message: 'User ID is required'}
-    
+
     if(!formName)
         return {message: 'Form name is required'}
 
     const data = {
-        uid, 
+        uid,
         formName,
         isPublic
     }
-    
+
     if(limitResponses)
         data.limitResponses = limitResponses
 
-    
+
     if(arrayDate.length > 0){
         const arrayDateFinal = []
 
@@ -290,10 +290,10 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
         }
 
         if(arrayDateFinal.length > 0)
-            data.endDate = new Date(...arrayDateFinal).toLocaleString() 
-        
+            data.endDate = new Date(...arrayDateFinal).toLocaleString()
+
         //if endDate is not a date
-        if(data.endDate == 'Invalid Date')            
+        if(data.endDate == 'Invalid Date')
             return {message: 'Invalid Date'}
     }
 
@@ -304,7 +304,7 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
     const form = await result.get()
 
     if(!isPublic){
-        
+
         if(!allowedUsers || allowedUsers.length < 1)
             return {message: 'You must specify at least one allowed user for private forms'}
 
@@ -321,7 +321,7 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
     }
 
     for(let index in questions){
-        
+
         const questionResult = await createQuestion(form.id, parseInt(index) + 1,questions[index])
 
         //if there's an error registering questions in database, form and it's questions are deleted
