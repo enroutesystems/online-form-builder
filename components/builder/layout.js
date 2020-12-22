@@ -36,7 +36,11 @@ export default class extends Component {
             activeCardIndex: 0,
             activeColor: "gray",
             isFetching: false,
-            modalActive: true
+            modalActive: false,
+            formIsPublic: false,
+            allowedUsers: [],
+            formHasDateLimit: false,
+            dateLimit: undefined
         },
 
         this.handleQuestionChange = (question) => {
@@ -134,6 +138,11 @@ export default class extends Component {
                 }
             }
 
+            if(!this.state.formIsPublic && this.state.allowedUsers.length < 1){
+                alert.warning('This forms is setted as private and you have not selected allowed users')
+                return
+            }
+
             this.setState({
                 ...this.state,
                 isFetching: true
@@ -142,14 +151,11 @@ export default class extends Component {
             const body = {
                 uid: this.props.user.uid,
                 formName: this.titleInput.current.value.trim(),
-                isPublic: false, //config modal
-                year: 2021, //config modal
-                month: 0, //config modal
-                day: 21, //config modal
-                hour: 16, //config modal
-                minute: 30, //config modal
-                second: 0, //config modal
-                allowedUsers: ['QqOao7atZ2PnA72eXTVOQ0M4Ykz1'], //config modal
+                isPublic: this.state.formIsPublic,
+                year: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('-')[0]) : undefined, 
+                month: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('.')[1]) - 1 : undefined ,
+                day: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('.')[2]) : undefined,
+                allowedUsers: !this.state.formIsPublic ? this.state.allowedUsers : undefined,
                 questions: this.state.cards.map(card => {
                     card.text = card.question
                     card.cardColor = card.color
@@ -193,10 +199,45 @@ export default class extends Component {
             })
         }
 
+        this.handleIsPublicChange = (e) => {
+            this.setState(prevState => ({...prevState, formIsPublic: e.target.checked}))
+        }
+
+        this.userInput = React.createRef()
+
+        this.addUser = () => {
+            const newUser = this.userInput.current.value.trim()
+            this.setState(prevState => ({...prevState, allowedUsers: [...prevState.allowedUsers, newUser]}))
+            this.userInput.current.value = ''
+            this.userInput.current.focus()
+        }
+
+        this.deleteUser = (deleteIndex) => {
+            this.setState(prevState => ({
+                ...prevState,
+                allowedUsers: prevState.allowedUsers.filter((user, index) => index !== deleteIndex)
+            }))
+        }
+
+        this.handleHasDateLimitChange = (e) => {
+            this.setState(prevState => ({...prevState, formHasDateLimit: e.target.checked}))
+        }
+
+        this.handleDateLimitChange = (e) => {
+            this.setState(prevState => ({...prevState, dateLimit: e.target.value}))
+        }
+
         this.removeCard = this.removeCard.bind(this)
         this.changeActive = this.changeActive.bind(this)
         this.handleQuestionChange = this.handleQuestionChange.bind(this)
         this.handleSubmitForm = this.handleSubmitForm.bind(this)
+    }
+
+    componentDidMount(){
+        this.userInput.current.addEventListener('keypress', (e) => {
+            if(e.keyCode === 13)
+                this.addUser()
+        })
     }
 
 
@@ -255,7 +296,7 @@ export default class extends Component {
 
                     </div>
                 </div>
-                <div className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-700 opacity-100 z-20 ${ this.state.modalActive ? '' : 'hidden' }`}>
+                <div className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-700 bg-opacity-40 z-20 ${ this.state.modalActive ? '' : 'hidden' }`}>
                     <div className="bg-white border border-gray-200 rounded w-1/2 h-1/2 opacity-100">
                         <div className="overflow-y-scroll h-full">
                         <div className="border-b border-gray-200 p-4 flex items-center justify-between">
@@ -267,77 +308,65 @@ export default class extends Component {
                             </div>
                         </div>
                         <div className="w-full p-5">
-                            <div classname="font-semibold">
+                            <div className="font-semibold">
                                 Base Settings
                             </div>
                             <div className="my-6 space-y-2 text-gray-500">
                                 <label className="flex items-center space-x-2 text-sm">
-                                    <input type="checkbox" className="appearance-none bg-white border-2 rounded h-5 w-5 border-gray-300 checked:bg-blue-500 checked:border-transparent " />
+                                    <input type="checkbox" className="appearance-none bg-white border-2 rounded h-5 w-5 border-gray-300 checked:bg-blue-500 checked:border-transparent " defaultChecked={this.state.formIsPublic} onChange={this.handleIsPublicChange}/>
                                     <span>
                                         Is public
                                     </span>
                                 </label>
                                 <label className="flex items-center space-x-2 text-sm">
-                                    <input type="checkbox" className="appearance-none bg-white border-2 rounded h-5 w-5 border-gray-300 checked:bg-blue-500 checked:border-transparent" />
+                                    <input type="checkbox" className="appearance-none bg-white border-2 rounded h-5 w-5 border-gray-300 checked:bg-blue-500 checked:border-transparent" defaultChecked={this.state.dateLimit} onChange={this.handleHasDateLimitChange}/>
                                     <span>
                                         Date limit?
                                     </span>
                                 </label>
                             </div>
 
-                            <div className="mt-8">
-                            <div classname="font-semibold">
-                                User Settings
-                            </div>
-                            <div className="my-6">
-                                <label className="flex items-center space-x-2 text-xs text-gray-500">
-                                    <input type="checkbox" className="appearance-none bg-white border-2 rounded h-5 w-5 border-gray-300 checked:bg-blue-500 checked:border-transparent" />
-                                    <span>
-                                        Limited to allowed users?
-                                    </span>
-                                </label>
-                            </div>
-                            <div className="my-4 grid grid-cols-10 gap-2">
-                                <input type="text" className="px-3 border border-gray-300 text-sm rounded col-span-9 p-1 focus:outline-none" placeholder="Enter the user email..."/>
-                                <div className="bg-blue-400 rounded text-white p-2 text-center text-sm">
-                                    Add
+                            <div className="mt-8" hidden={!this.state.formHasDateLimit}>
+                                <div>
+                                    <div classname="font-semibold">
+                                        Date limit
+                                    </div>
+                                    <input type='date' onChange={this.handleDateLimitChange}/>
                                 </div>
                             </div>
-                            <div className="border rounded bg-white text-xs">
-                                <div className="grid grid-cols-10 border-b">
-                                    <div className="text-gray-500 py-2 px-3 border-r col-span-7">
-                                        Email
-                                    </div>
-                                    <div className="col-span-2 border-r text-gray-500 px-3 py-2 text-center">
-                                        Send invite?
-                                    </div>
-                                    <div className="text-gray-500 px-3 py-2 text-center">
-                                        Active?
+
+                            <div className="mt-8" hidden={this.state.formIsPublic}>
+                                <div classname="font-semibold">
+                                    User Settings
+                                </div>
+                                <div className="my-4 grid grid-cols-10 gap-2">
+                                    <input ref={this.userInput} type="email" className="px-3 border border-gray-300 text-sm rounded col-span-9 p-1 focus:outline-none" placeholder="Enter the user email..."/>
+                                    <div className="bg-blue-400 rounded text-white p-2 text-center text-sm" onClick={this.addUser}>
+                                        Add
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-10 border-b">
-                                    <div className="text-gray-800 py-2 px-3 border-r col-span-7 border-r flex items-center">
-                                        example@gmail.com
+                                <div className="border rounded bg-white text-xs">
+                                    <div className="grid grid-cols-10 border-b">
+                                        <div className="text-gray-500 py-2 px-3 border-r col-span-7">
+                                            Email
+                                        </div>
+                                        <div className="text-gray-500 px-3 py-2 text-center">
+                                            Delete
+                                        </div>
                                     </div>
-                                    <div className="col-span-2 px-3 py-2 border-r text-blue-500 font-semibold flex items-center justify-center cursor-pointer">
-                                        Invite
-                                    </div>
-                                    <div className="flex items-center justify-center p-2">
-                                        <div className="h-5 w-5 bg-green-500 rounded"> </div>
+                                    <div className="grid grid-cols-10 border-b">
+                                        {this.state.allowedUsers.map((user, index) => (
+                                            <React.Fragment key={'allowedUser' + index}>
+                                                <div className="text-gray-800 py-2 px-3 border-r col-span-7 border-r flex items-center">
+                                                    {user}
+                                                </div>
+                                                <div className="flex items-center justify-center p-2 hover: cursor-pointer" onClick={() => this.deleteUser(index)}>
+                                                    <div className="h-5 w-5 bg-red-500 rounded text-center"> X </div>
+                                                </div>
+                                            </React.Fragment>
+                                        ))}
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-10">
-                                    <div className="text-gray-800 py-2 px-3 border-r col-span-7 border-r flex items-center">
-                                        user@example.com
-                                    </div>
-                                    <div className="col-span-2 px-3 py-2 border-r text-blue-500 font-semibold flex items-center justify-center cursor-pointer">
-                                        Invite
-                                    </div>
-                                    <div className="flex items-center justify-center p-2">
-                                        <div className="h-5 w-5 bg-gray-300 rounded"> </div>
-                                    </div>
-                                </div>
-                            </div>
                             </div>
                         </div>
                         </div>
