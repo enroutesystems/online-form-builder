@@ -2,9 +2,12 @@ import api from '../helpers/api'
 import OpenAnswer from '../components/AnswerDisplay/OpenAnswer'
 import LinkAnswer from '../components/AnswerDisplay/LinkAnswer'
 import MapAnswer from '../components/AnswerDisplay/MapAnswer'
+import OptionAnswer from '../components/AnswerDisplay/OptionAnswer'
 import questionTypes from '../helpers/questionTypes'
 
 function Answers({data}) {
+
+    console.log(data)
 
     const getResponsersEmails = () => {
 
@@ -75,7 +78,6 @@ function Answers({data}) {
                         </div>
                     </div>
                 </div>
-
                 {getQuestions().map((question, index) => {
                     const filteredResponses = data.responses.filter(response => response.question.questionId === question.questionId)
 
@@ -87,6 +89,9 @@ function Answers({data}) {
 
                     if(questionTypes.map === question.type)
                         return <MapAnswer key={`QuestionAnswer ${question.questionId}`} responses={filteredResponses} />
+
+                    if([questionTypes.multiOptions, questionTypes.range].includes(question.type))
+                        return <OptionAnswer key={`QuestionAnswer ${question.questionId}`} responses={filteredResponses} />
                 })}
             </div>
         </div>
