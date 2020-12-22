@@ -344,7 +344,7 @@ export default class extends Component {
                                     </span>
                                 </label>
                                 <label className="flex items-center space-x-2 text-sm">
-                                    <input type="checkbox" className="appearance-none bg-white border-2 rounded h-5 w-5 border-gray-300 checked:bg-blue-500 checked:border-transparent" defaultChecked={this.state.dateLimit} onChange={this.handleformHasLimitResponses}/>
+                                    <input type="checkbox" className="appearance-none bg-white border-2 rounded h-5 w-5 border-gray-300 checked:bg-blue-500 checked:border-transparent" defaultChecked={this.state.formHasLimitResponses} onChange={this.handleformHasLimitResponses}/>
                                     <span>
                                         Responses limit?
                                     </span>
