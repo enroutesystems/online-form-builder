@@ -113,6 +113,9 @@ export const isAllowedToAnswer = async(form, formId, uid) => {
         else
             return {message: 'User is not allowed to fill this form'}
     }
+    else{
+        return {ok:true}
+    }
 
     
 }
@@ -147,10 +150,11 @@ export const sendAnswers = async(formId, uid, answers) => {
 
     const form =  await (await firestore.collection(collections.forms).doc(formId).get()).data()
 
-
+    
     const validation = validateAnswers(answers)
+    
     const allowedUser = await isAllowedToAnswer(form, formId, uid)
-
+    
     if(validation.message)
         return {message: validation.message}
 
@@ -159,12 +163,20 @@ export const sendAnswers = async(formId, uid, answers) => {
 
 
     for(let answer of answers){
-    
+        
+        const data = {...answers}
+
+        if(uid)
+            data.uid = uid
+            
         try{
-            await firestore.collection(collections.userResponses).add({
-                uid,
-                ...answer
-            })
+            if(uid)
+                await firestore.collection(collections.userResponses).add({
+                    uid,
+                    ...answer
+                })
+            else
+                await firestore.collection(collections.userResponses).add({...answer})
         }
         catch{
             await deleteUserResponse(uid, answers)

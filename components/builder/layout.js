@@ -153,8 +153,8 @@ export default class extends Component {
                 formName: this.titleInput.current.value.trim(),
                 isPublic: this.state.formIsPublic,
                 year: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('-')[0]) : undefined, 
-                month: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('.')[1]) - 1 : undefined ,
-                day: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('.')[2]) : undefined,
+                month: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('-')[1]) - 1 : undefined ,
+                day: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('-')[2]) : undefined,
                 allowedUsers: !this.state.formIsPublic ? this.state.allowedUsers : undefined,
                 questions: this.state.cards.map(card => {
                     card.text = card.question
@@ -166,14 +166,14 @@ export default class extends Component {
                     return card
                 })
             }
-
+            
             let response
 
             try{
                 response = await api.post('/api/form/create', body)
             }
             catch(err) {response = err.response}
-            console.log(response)
+            
             if(!response.data.ok){
                 alert.error(response.data.result.message)
             }

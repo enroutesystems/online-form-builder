@@ -24,7 +24,7 @@ export const getQuestions = async(formId) => {
 
     snapshotQuestions = await firestore.collection(collections.questions).where('formId', '==', formId).get()
     snapshotQuestions.forEach(doc => tempArrayQuestions.push(doc))
-
+    
     for(let doc of tempArrayQuestions){
         let oQuestion = {...doc.data()}
         
@@ -258,9 +258,9 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
     const data = {
         uid, 
         formName,
-        isPublic: isPublic == 'true',
+        isPublic
     }
-
+    
     if(limitResponses)
         data.limitResponses = limitResponses
 

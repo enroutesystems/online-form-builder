@@ -8,9 +8,9 @@ export default async(req, res) => {
     const year = req.body.year
     const month = req.body.month
     const day = req.body.day
-    const hour = req.body.hour
-    const minute = req.body.minute
-    const second = req.body.second
+    const hour = 23
+    const minute = 59
+    const second = 59
     const questions = req.body.questions
     const allowedUsers = req.body.allowedUsers
 
