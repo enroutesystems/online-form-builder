@@ -24,7 +24,7 @@ export const getQuestions = async(formId) => {
 
     snapshotQuestions = await firestore.collection(collections.questions).where('formId', '==', formId).get()
     snapshotQuestions.forEach(doc => tempArrayQuestions.push(doc))
-
+    
     for(let doc of tempArrayQuestions){
         let oQuestion = {...doc.data()}
         
@@ -57,10 +57,13 @@ export const getForms = async(uid, formId) => {
             document = await firestore.collection(collections.forms).doc(formId).get()
             result = document.data()
 
+            if(!result)
+                return {message: 'Form was not found'}
+
             const isAllowed = await isAllowedToAnswer(result, formId, uid)
 
             if(!isAllowed.ok && result.uid !== uid)
-                return {message: 'User is not allowed to fill this form'}
+                return {message: isAllowed.message}
 
             result.formId = document.id
             result.questions = await getQuestions(formId)
@@ -258,9 +261,9 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
     const data = {
         uid, 
         formName,
-        isPublic: isPublic == 'true',
+        isPublic
     }
-
+    
     if(limitResponses)
         data.limitResponses = limitResponses
 
@@ -286,8 +289,8 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
                 return {message: 'Invalid Date'}
         }
 
-
-        data.endDate = new Date(...arrayDateFinal).toLocaleString() 
+        if(arrayDateFinal.length > 0)
+            data.endDate = new Date(...arrayDateFinal).toLocaleString() 
         
         //if endDate is not a date
         if(data.endDate == 'Invalid Date')            
