@@ -263,7 +263,6 @@ export default class extends Component {
     render() {
         return(
             <div className="min-h-screen">
-                <Navbar></Navbar>
                 <div className="grid grid-cols-5 h-screen">
                     <div className="border border-r shadow-lg overflow-y-scroll z-10">
                         <div className='flex items-center justify-between px-4'>

@@ -25,7 +25,6 @@ export default class Dashboard extends Component {
       else
         return(
           <>
-          <NavbarDashboard />
             <div className="min-h-screen auto-rows-auto">
                 <div className="p-8 bg-gray-100 min-h-screen">
                     <div className="mb-6">
