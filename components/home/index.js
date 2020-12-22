@@ -42,7 +42,6 @@ export default class Welcome extends Component {
   render() {
     return(
       <>
-      <Navbar />
       <section className={`${styles.message} ${styles["d-flex"]}`}>
 
         <div className={`${styles.container} ${styles["d-flex"]}`}>

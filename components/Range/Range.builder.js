@@ -36,8 +36,8 @@ export default class RangeBuilder extends Component {
   render() {
     return (
       <>
-        <input type="number" defaultValue={this.state.minValue} name="range" style={{backgroundColor: 'red'}} max={+this.state.maxValue - 1} onKeyUp={(e) => {this.handleKeyUp(e, 'min')}}/>
-        <input type="number" defaultValue={this.state.maxValue} name="range" style={{backgroundColor: 'blue'}} min={+this.state.minValue + 1} onKeyUp={(e) => {this.handleKeyUp(e, 'max')}} />
+        <input className="w-1/2 h-8 border-gray-300" type="number" defaultValue={this.state.minValue} name="range" max={+this.state.maxValue - 1} onKeyUp={(e) => {this.handleKeyUp(e, 'min')}}/>
+        <input className="w-1/2 h-8 border-gray-300" type="number" defaultValue={this.state.maxValue} name="range" min={+this.state.minValue + 1} onKeyUp={(e) => {this.handleKeyUp(e, 'max')}} />
       </>
     );
   }

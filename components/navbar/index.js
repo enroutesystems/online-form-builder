@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import styles from './navbar.module.scss';
-import { useSession } from 'next-auth/client'
-
 
 export default function Navbar() {
-  const [session, loading] = useSession();
   return(
     <nav className={`${styles["d-flex"]} ${styles.nav}`}>
       <div className={`${styles["d-flex"]} ${styles.container}`}>
