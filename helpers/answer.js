@@ -98,7 +98,7 @@ export const isAllowedToAnswer = async(form, formId, uid) => {
         if(!uid)
             return {message: 'uid is required to fill this form'}
 
-        if(responses.some(answer => answer.uid === uid))
+        if(responses.some(response => response.user.uid === uid))
             return {message: 'You have already filled this form.'}
 
         const snapshotAllowedUsers = await firestore.collection(collections.allowedUsers)

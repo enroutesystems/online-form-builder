@@ -57,10 +57,13 @@ export const getForms = async(uid, formId) => {
             document = await firestore.collection(collections.forms).doc(formId).get()
             result = document.data()
 
+            if(!result)
+                return {message: 'Form was not found'}
+
             const isAllowed = await isAllowedToAnswer(result, formId, uid)
 
             if(!isAllowed.ok && result.uid !== uid)
-                return {message: 'User is not allowed to fill this form'}
+                return {message: isAllowed.message}
 
             result.formId = document.id
             result.questions = await getQuestions(formId)
