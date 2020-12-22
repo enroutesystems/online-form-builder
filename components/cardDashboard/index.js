@@ -7,7 +7,7 @@ export default class extends Component {
         super(props);
     }
 
-    handleRedirect() {
+    handleRedirect = () => {
         Redirect.push('/answers?formId=' + this.props.formId)
     }
 
@@ -18,12 +18,6 @@ export default class extends Component {
                     {this.props.name}
                 </p>
                 <div className="p-4 border-t flex items-center justify-between text-xs text-gray-500">
-                    <div>
-                        {this.props.responsesNumber} Responses
-                    </div>
-                    <div className="border rounded border border-gray-300 py-1 px-4 hover:border-gray-400 hover:text-gray-600">
-                        Edit
-                    </div>
                 </div>
             </div>
         );

@@ -67,7 +67,7 @@ const FormView = ({data, user}) => {
         let response
         try{
             response = await api.post('/api/form/answers/send', {
-                uid: user.uid,
+                uid: user ? user.uid : undefined,
                 formId: data.result.formId,
                 answers: arrayAnswers
             })
@@ -131,17 +131,21 @@ export async function getServerSideProps(context){
     let response
     try {
         response = await api.get('/api/form/get', {
-            uid: session.user.uid,
+            uid: session ? session.user.uid: undefined,
             formId
         })
     }
     catch(err){ response = err.response}
+    
+    const props = {data: response.data}
+
+    if(session)
+        props.user = session.user
+
+    console.log(props)
 
     return{
-        props: {
-            data: response.data,
-            user: session.user
-        }
+        props
     }
 }
 
