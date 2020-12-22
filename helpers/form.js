@@ -2,6 +2,7 @@ import {firestore} from '../firebaseConfig'
 import questionTypes from './questionTypes'
 import collections from './collections'
 import {isAllowedToAnswer} from './answer'
+import {getUser} from './user'
 
 const getOptionAnswers = async(questionId) => {
     const arrayOptions = []
@@ -161,7 +162,7 @@ const createQuestion = async(formId, number, question) => {
     let newQuestion
     try{
         newQuestion = await firestore.collection(collections.questions).doc()
-        console.log(newQuestion)
+        
         const questionData = {
             formId,
             number,
@@ -225,12 +226,17 @@ const deleteForm = async (formId) => {
     await batch.commit()
 }
 
-const allowUsers = async(formId, uid) => {
+const allowUsers = async(formId, email) => {
+
+    const user = await getUser(email)
+
+    if(!user.uid)
+        return {ok: true}
 
     try{
         await firestore.collection(collections.allowedUsers).add({
             formId,
-            uid
+            uid: user.uid
         })
     }
     catch{return {message: 'Error while trying to save allowed users'}}
@@ -295,13 +301,13 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
     const form = await result.get()
 
     if(!isPublic){
-
+        
         if(!allowedUsers || allowedUsers.length < 1)
             return {message: 'You must specify at least one allowed user for private forms'}
 
-        for(uid of allowedUsers){
+        for(let email of allowedUsers){
 
-            const allowUsersResult = await allowUsers(form.id, uid)
+            const allowUsersResult = await allowUsers(form.id, email)
 
             if(allowUsersResult.message){
                 await deleteForm(form.id)

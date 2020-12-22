@@ -10,6 +10,7 @@ export default function NavbarDashboard() {
         setActiveNavbar(!activeNavbar)
     }
 
+
     return(
         <nav className="col-auto flex items-center justify-between px-8 py-3 border-b border-gray-200">
             <h1 className="text-lg semibold rounded-full border-4 border-gray-800 flex itesm-center justify-center h-8 w-8 text-gray-500"></h1>

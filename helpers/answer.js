@@ -24,12 +24,11 @@ export const getResponses = async(formId, uid) => {
     for(let index in arrayResponses){
         let responserUid = arrayResponses[index].uid || undefined 
         arrayResponses[index].user = responserUid ? await getUser(undefined, arrayResponses[index].uid) : {email: 'Anonymous'}
-        arrayResponses[index].question = questions[index]
+        arrayResponses[index].question = questions.find(question => question.questionId === arrayResponses[index].questionId)
 
         delete arrayResponses[index].questionId
         delete arrayResponses[index].uid
     }
-
     return {
         formId,
         responses: arrayResponses.sort((a, b) => a.question.number - b.question.number)
@@ -132,7 +131,6 @@ const deleteUserResponse = async(uid, answers) => {
             .where('questionId', '==', answer.questionId).where('uid', '==', uid).get()
         
         snapshotUserResponse.forEach(doc => {
-            console.log('data', doc.data())
             batch.delete(doc.ref)
         })
     }
