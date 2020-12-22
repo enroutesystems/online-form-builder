@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Navbar from '../components/navbarDashboard'
 import Card from '../components/cardDashboard'
 import CardCreate from '../components/cardCreateDashboard'
 import {getSession} from 'next-auth/client'
 import api from '../helpers/api'
 import Redirect from 'next/router'
+import NavbarDashboard from "../components/navbarDashboard";
 
 export default class Dashboard extends Component {
 
@@ -17,13 +17,15 @@ export default class Dashboard extends Component {
     }
 
     render() {
-        
+
       if(!this.props.forms)
         return(
           <div>ERROR: ocurrió al traer los datos del servidor</div>
         )
       else
         return(
+          <>
+          <NavbarDashboard />
             <div className="min-h-screen auto-rows-auto">
                 <div className="p-8 bg-gray-100 min-h-screen">
                     <div className="mb-6">
@@ -37,6 +39,7 @@ export default class Dashboard extends Component {
                     </div>
                 </div>
             </div>
+            </>
         );
     }
 }
@@ -55,7 +58,7 @@ export async function getServerSideProps(context){
 
   return {
       props: {
-          forms: result.data.result || result.response.data 
+          forms: result.data.result || result.response.data
       }
   }
 }
