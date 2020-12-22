@@ -8,6 +8,36 @@ import api from '../../helpers/api'
 import alert from '../../helpers/alert'
 import {FaCog} from 'react-icons/fa'
 
+const getInitialState = () => ({
+    colors: [
+        "gray",
+        "red",
+        "green",
+        "yellow",
+        "purple",
+        "indigo",
+        "pink",
+        "gray",
+    ],
+    cards: [
+        {
+            question: "",
+            type: questionTypes.singleLineText,
+            color: "gray"
+        }
+    ],
+    activeCardIndex: 0,
+    activeColor: "gray",
+    isFetching: false,
+    modalActive: false,
+    formIsPublic: true,
+    allowedUsers: [],
+    formHasDateLimit: false,
+    dateLimit: undefined,
+    formHasLimitResponses: false,
+    limitResponses: 1
+})
+
 export default class extends Component {
 
     constructor(props) {
@@ -15,35 +45,7 @@ export default class extends Component {
 
         this.titleInput = React.createRef()
 
-        this.state = {
-            colors: [
-                "gray",
-                "red",
-                "green",
-                "yellow",
-                "purple",
-                "indigo",
-                "pink",
-                "gray",
-            ],
-            cards: [
-                {
-                    question: "",
-                    type: questionTypes.singleLineText,
-                    color: "gray"
-                }
-            ],
-            activeCardIndex: 0,
-            activeColor: "gray",
-            isFetching: false,
-            modalActive: false,
-            formIsPublic: true,
-            allowedUsers: [],
-            formHasDateLimit: false,
-            dateLimit: undefined,
-            formHasLimitResponses: false,
-            limitResponses: 1
-        },
+        this.state = getInitialState()
 
         this.handleQuestionChange = (question) => {
             this.setState((prevState) => {
@@ -187,12 +189,9 @@ export default class extends Component {
             }
             else{
                 alert.success('Form was created successfully!')
+                this.titleInput.current.value = ''
+                this.setState(getInitialState())
             }
-
-            this.setState({
-                ...this.state,
-                isFetching: false
-            })
         }
 
         this.openModal = () => {

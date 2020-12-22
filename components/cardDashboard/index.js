@@ -1,14 +1,39 @@
-import { Component } from 'react';
+import { Component, createRef} from 'react';
 import Redirect from 'next/router'
+import {AiOutlineLink} from 'react-icons/ai'
+import style from './cardDashboard.module.scss'
 
 export default class extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            copiedMessage: false
+        }
     }
+
+    hidden = createRef()
 
     handleRedirect = () => {
         Redirect.push('/answers?formId=' + this.props.formId)
+    }
+
+    handleCopyLink = (e) => {
+        e.stopPropagation()
+        const dummy = document.createElement('input')
+        document.body.appendChild(dummy)
+        dummy.setAttribute('value', process.env.NEXT_PUBLIC_HOST + '/form/view?formId=' + this.props.formId)
+        dummy.select()
+        dummy.select()
+        document.execCommand('copy')
+        document.body.removeChild(dummy)
+        this.setState({copiedMessage: true})
+    }
+
+    componentDidUpdate(){
+        if(this.state.copiedMessage)
+            setTimeout(() => this.setState({copiedMessage: false}), 4000)
     }
 
     render() {
@@ -17,7 +42,13 @@ export default class extends Component {
                 <p className="text-2xl row-span-2 p-5">
                     {this.props.name}
                 </p>
-                <div className="p-4 border-t flex items-center justify-between text-xs text-gray-500">
+                <div>
+                    <div onClick={this.handleCopyLink} className='border border-gray-300 position-absolute inline-block float-right mx-3 hover:bg-gray-200'>
+                        <AiOutlineLink />
+                    </div>
+                    <div className={`text-xs text-gray-600 float-right ${this.state.copiedMessage && style.opacityAnimation}`}>
+                        {this.state.copiedMessage ? 'Copied to clipboard!' : ''}
+                    </div>
                 </div>
             </div>
         );
