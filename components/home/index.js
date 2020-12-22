@@ -41,20 +41,23 @@ export default class Welcome extends Component {
 
   render() {
     return(
-        <section className="">
-          <Navbar />
-          <div className="flex">
-            <div>
-              <h2>Engange your Audience</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet asperiores assumenda consequuntur dolorum incidunt laboriosam nihil, tempore unde vel vero! Deserunt excepturi illo inventore quae saepe! Debitis eum ipsa totam.</p>
-              <a href="" className="">Get started!</a>
-            </div>
-            <div class="bg-cover bg-center h-1/3">
-              <img src={this.state.photo}/>
-            </div>
+      <>
+      <Navbar />
+      <section className={`${styles.message} ${styles["d-flex"]}`}>
+
+        <div className={`${styles.container} ${styles["d-flex"]}`}>
+          <div>
+            <h2>Engange your Audience</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet asperiores assumenda consequuntur dolorum incidunt laboriosam nihil, tempore unde vel vero! Deserunt excepturi illo inventore quae saepe! Debitis eum ipsa totam.</p>
+            <a href="/api/auth/login" className={styles.btn}>Get started!</a>
           </div>
-        </section>
+          <img src={this.state.photo}/>
+        </div>
+      </section>
+        </>
     );
   }
 }
+
+
 
