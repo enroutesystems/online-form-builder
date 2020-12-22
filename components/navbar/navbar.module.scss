@@ -71,7 +71,14 @@ $font-roboto: Roboto, sans-serif;
   }
 }
 
+.brand {
+  font-weight: 700;
+  font-size: 1.5em;
 
+  .logo {
+    height: 3rem;
+  }
+}
 
 @media only screen and (max-width: $breakpoint-desktop) {
   .nav {
