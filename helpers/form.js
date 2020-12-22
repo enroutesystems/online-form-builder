@@ -289,8 +289,8 @@ export const createForm = async(uid, formName, isPublic, limitResponses, arrayDa
                 return {message: 'Invalid Date'}
         }
 
-
-        data.endDate = new Date(...arrayDateFinal).toLocaleString() 
+        if(arrayDateFinal.length > 0)
+            data.endDate = new Date(...arrayDateFinal).toLocaleString() 
         
         //if endDate is not a date
         if(data.endDate == 'Invalid Date')            

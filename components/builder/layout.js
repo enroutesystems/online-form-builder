@@ -37,10 +37,12 @@ export default class extends Component {
             activeColor: "gray",
             isFetching: false,
             modalActive: false,
-            formIsPublic: false,
+            formIsPublic: true,
             allowedUsers: [],
             formHasDateLimit: false,
-            dateLimit: undefined
+            dateLimit: undefined,
+            formHasLimitResponses: false,
+            limitResponses: 1
         },
 
         this.handleQuestionChange = (question) => {
@@ -143,6 +145,11 @@ export default class extends Component {
                 return
             }
 
+            if(this.state.formHasLimitResponses && this.state.limitResponses < 1){
+                alert.warning('Limit responses must be at least 1')
+                return
+            }
+            
             this.setState({
                 ...this.state,
                 isFetching: true
@@ -156,6 +163,7 @@ export default class extends Component {
                 month: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('-')[1]) - 1 : undefined ,
                 day: this.state.formHasDateLimit ? parseInt(this.state.dateLimit.split('-')[2]) : undefined,
                 allowedUsers: !this.state.formIsPublic ? this.state.allowedUsers : undefined,
+                limitResponses: this.state.formHasLimitResponses ? this.state.limitResponses : undefined,
                 questions: this.state.cards.map(card => {
                     card.text = card.question
                     card.cardColor = card.color
@@ -225,6 +233,17 @@ export default class extends Component {
 
         this.handleDateLimitChange = (e) => {
             this.setState(prevState => ({...prevState, dateLimit: e.target.value}))
+        }
+
+        this.handleformHasLimitResponses = (e) => {
+            
+            this.setState(prevState => ({...prevState, formHasLimitResponses: e.target.checked}))
+        }
+
+        this.handleLimitResponsesChange = (e) => {
+
+            const newLimitResponses = parseInt(e.target.value) || 0
+            this.setState(prevState => ({...prevState, limitResponses: newLimitResponses}))
         }
 
         this.removeCard = this.removeCard.bind(this)
@@ -324,19 +343,32 @@ export default class extends Component {
                                         Date limit?
                                     </span>
                                 </label>
+                                <label className="flex items-center space-x-2 text-sm">
+                                    <input type="checkbox" className="appearance-none bg-white border-2 rounded h-5 w-5 border-gray-300 checked:bg-blue-500 checked:border-transparent" defaultChecked={this.state.dateLimit} onChange={this.handleformHasLimitResponses}/>
+                                    <span>
+                                        Responses limit?
+                                    </span>
+                                </label>
                             </div>
 
                             <div className="mt-8" hidden={!this.state.formHasDateLimit}>
                                 <div>
-                                    <div classname="font-semibold">
+                                    <div className="font-semibold">
                                         Date limit
                                     </div>
                                     <input type='date' onChange={this.handleDateLimitChange}/>
                                 </div>
                             </div>
 
+                            <div className="mt-8" hidden={!this.state.formHasLimitResponses}>
+                                <div>
+                                    <div className="font-semibold">Responses limit</div>
+                                </div>
+                                <input type='number' min='1' onChange={this.handleLimitResponsesChange} defaultValue={this.state.limitResponses}/>
+                            </div>
+
                             <div className="mt-8" hidden={this.state.formIsPublic}>
-                                <div classname="font-semibold">
+                                <div className="font-semibold">
                                     User Settings
                                 </div>
                                 <div className="my-4 grid grid-cols-10 gap-2">

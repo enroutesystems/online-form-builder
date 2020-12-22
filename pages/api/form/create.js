@@ -8,15 +8,15 @@ export default async(req, res) => {
     const year = req.body.year
     const month = req.body.month
     const day = req.body.day
-    const hour = 23
-    const minute = 59
-    const second = 59
+    const hour = year && month && day && 23
+    const minute = year && month && day && 59
+    const second = year && month && day && 59
     const questions = req.body.questions
     const allowedUsers = req.body.allowedUsers
 
     let arrayDate = [year, month, day]
     let arrayTime = [hour, minute, second]
-
+    
     const result = await createForm(uid, formName, isPublic, limitResponses, arrayDate, arrayTime, questions, allowedUsers)
 
     if(result.message){
