@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import api from '../helpers/api'
 import OpenAnswer from '../components/AnswerDisplay/OpenAnswer'
 import LinkAnswer from '../components/AnswerDisplay/LinkAnswer'
@@ -41,6 +42,11 @@ function Answers({data}) {
     }
 
     return <div>
+        <Head>
+            <title>Formify | Answers</title>
+            <link rel="icon" href="/formify.ico" />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+        </Head>
         <div className="flex items-center justify-center">
             <div className="flex justify-center flex-col items-center w-full">
                 <div className="bg-gray-900 w-full flex items-center justify-center py-8">

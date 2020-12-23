@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import {useState} from 'react'
 import api from '../../helpers/api'
 import QuestionContainerViewer from '../../components/QuestionContainer/QuestionContainerViewer'
@@ -138,6 +139,11 @@ const FormView = ({data, user}) => {
 
     return(
         <div className='mx-52 place-content-center'>
+            <Head>
+              <title>Formify | Form View</title>
+              <link rel="icon" href="/formify.ico" />
+              <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+            </Head>
            <h1 className='font-bold text-3xl text-center mb-6'>{data.result ? data.result.formName : ''}</h1>
             {!formCompleted
                 ? renderQuestions()
