@@ -24,3 +24,67 @@
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+
+.bg-gray-300 {
+    background-color: rgba(209, 213, 219) !important;
+}
+
+.bg-red-300 {
+    background-color: rgba(252, 165, 165) !important;
+}
+
+.bg-green-300 {
+    background-color: rgba(110, 231, 183) !important;
+}
+
+.bg-yellow-300 {
+    background-color: rgba(252, 211, 77) !important;
+}
+
+.bg-purple-300 {
+    background-color: rgba(196, 181, 253) !important;
+}
+
+.bg-indigo-300 {
+    background-color: rgba(165, 180, 252) !important;
+}
+
+.bg-pink-300 {
+    background-color: rgba(249, 168, 212) !important;
+}
+
+.bg-blue-300 {
+    background-color: rgba(147, 197, 253) !important;
+}
+
+.hover\:bg-gray-400:hover {
+    background-color: rgba(156, 163, 175) !important;
+}
+
+.hover\:bg-red-400:hover {
+    background-color: rgba(248, 113, 113) !important;
+}
+
+.hover\:bg-green-400:hover {
+    background-color: rgba(52, 211, 153) !important;
+}
+
+.hover\:bg-yellow-400:hover {
+    background-color: rgba(251, 191, 36) !important;
+}
+
+.hover\:bg-purple-400:hover {
+    background-color: rgba(167, 139, 250) !important;
+}
+
+.hover\:bg-indigo-400:hover {
+    background-color: rgba(129, 140, 248) !important;
+}
+
+.hover\:bg-pink-400:hover {
+    background-color: rgba(244, 114, 182) !important;
+}
+
+.hover\:bg-blue-400:hover {
+    background-color: rgba(96, 165, 250) !important;
+}

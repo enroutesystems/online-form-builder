@@ -17,7 +17,7 @@ const getInitialState = () => ({
         "purple",
         "indigo",
         "pink",
-        "gray",
+        "blue",
     ],
     cards: [
         {
