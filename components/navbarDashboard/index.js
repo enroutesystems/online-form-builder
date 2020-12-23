@@ -26,8 +26,8 @@ export default function NavbarDashboard() {
                   </div>
               </div>
               <div className={`absolute z-40 top-12 right-0 border mt-2 bg-white py-3 px-6 text-sm text-gray-500 rounded w-36 ${activeNavbar ? '' : 'hidden'}`}>
-                  {navbarOptions.map((option) => {
-                      return <div className="my-3">
+                  {navbarOptions.map((option, index) => {
+                      return <div key={'navbarDashboar' + index} className="my-3">
                           <a href={option.href} className="hover:text-gray-700">
                               {option.name}
                           </a>

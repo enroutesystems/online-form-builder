@@ -73,9 +73,6 @@ function Answers({data}) {
                                             <p className="font-semibold">
                                                 {email}
                                             </p>
-                                            <a href="#/" className="text-blue-400">
-                                                View answers
-                                            </a>
                                         </div>
                                     </div>
                                 </div>

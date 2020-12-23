@@ -13,8 +13,8 @@ const FileAnswers = ({responses}) => {
                                 {response.user.email}
                             </div>
                             <ul>
-                            {response.response.map(link => (
-                                <li>
+                            {response.response.map((link, index) => (
+                                <li key={response.question.quiestionId + response.user.email + 'link' + index}>
                                     <a className='underline text-blue-600' target='_blank' href={link}>
                                         {link.split('/')[7].split('?')[0].replace('%20',' ')}
                                     </a>

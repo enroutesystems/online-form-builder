@@ -54,8 +54,8 @@ export default class OptionsRadioBuilder extends Component {
     return(
       <div>
         {this.state.optionCounter.map((value, index) => (
-          <div class="flex" key={index}>
-            <input class="rounded bg-gray-100 px-2 border-gray-100 mb-2 h-8 w-1/3" onKeyUp={(e) => this.handleKeyUp(e, value, index)} defaultValue={this.state.optionCounter[index].text} placeholder={`Option ${index + 1}`}/>
+          <div className="flex" key={index}>
+            <input className="rounded bg-gray-100 px-2 border-gray-100 mb-2 h-8 w-1/3" onKeyUp={(e) => this.handleKeyUp(e, value, index)} defaultValue={this.state.optionCounter[index].text} placeholder={`Option ${index + 1}`}/>
             {index > 1 ? <div className="rounded ml-2 bg-red-500 text-white text-lg h-8 px-3 text-center align-middle hover:bg-red-600 cursor-pointer" onClick={() => {this.removeOption(index)}}><a className="text-lg text-center">Remove</a></div> : null}
           </div>
         ))}
