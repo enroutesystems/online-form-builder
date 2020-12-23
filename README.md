@@ -181,4 +181,4 @@ Project Link: [Formify | Online Form Builder](https://github.com/enroutesystems/
 [issues-url]: https://github.com/enroutesystems/online-form-builder/issues
 [license-shield]: https://img.shields.io/badge/license-MIT-orange?style=for-the-badge
 [license-url]: https://github.com/enroutesystems/online-form-builder/blob/main/LICENSE.md
-[product-screenshot]: ./images/screenshot.png
+[product-screenshot]: ./public/screenshot.png
