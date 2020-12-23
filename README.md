@@ -1,30 +1,179 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+[![Rockstars G5][rockstars-shield]][rockstars-url]
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
+<br />
+<p align="center">
+  <a href="https://github.com/enroutesystems1/online-form-builder">
+    <img src="./public/enroute.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">Formify | Online Form Builder</h3>
+
+  <p align="center">
+  This project is part of the <b>Enroute | Rockstars G5</b> apprenticeship 2020 program.
+    <br />
+    <a href="https://github.com/enroutesystems/online-form-builder"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://formify.enroutesystes.com">View Demo</a>
+    ·
+    <a href="https://github.com/enroutesystems/online-form-builder/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/enroutesystems/online-form-builder/issues">Request Feature</a>
+  </p>
+</p>
+
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+[![Product Name Screen Shot][product-screenshot]](https://formify.enroutesystes.com)
+
+Required features:
+- Http routing.
+- Return the employee's information that match the query.
+
+
+### Built With
+
+* [NextJS](https://nextjs.org)
+* [NextAuth](https://next-auth.js.org)
+* [Firebase](https://firebase.google.com)  
+* [JavaScript](https://www.javascript.com)
+* [NodeJS](https://nodejs.dev)
+
+<!-- GETTING STARTED -->
 ## Getting Started
 
-First, run the development server:
+To get a local copy up and running follow these simple example steps.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To run this script your local environment should have at least these
+installations.
+* Linux/UNIX based OS (Recommended)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Installation
 
-## Learn More
+1. Clone the repository.
+   ```sh
+   git clone git@github.com:enroutesystems/online-form-builder.git
+   ```
+2. Change to the newly cloned directory.
+   ```sh
+   cd online-form-builder
+   ```
+3. Run the next command to install all needed dependencies.
+   ```sh
+   npm install
+   ```
+4. Run the next command to run the server.
+   ```sh
+   npm run dev
+   ```
+5. In your preferred browser go to:
+   ```
+   http://localhost:3000
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+<!-- ROADMAP -->
+## Roadmap
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+See the [open issues](https://github.com/enroutesystems/online-form-builder/issues) for a list of proposed features 
+(and 
+known 
+issues).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<!-- CONTRIBUTING -->
+## Contributing
 
-## Deploy on Vercel
+Contributions are what make the open source community such an amazing place to 
+be learn, inspire, and create. Any contributions you make are 
+**greatly appreciated**.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See [LICENSE](https://github.
+com/enroutesystems/online-form-builder/blob/online-form-builder/MIT_LICENSE.md) for more information.
+
+<!-- CONTACT -->
+## Contact
+
+**Julio Añoveros** 
+
+- LinkedIn: [@jubaan](https://www.linkedin.com/in/jubaan)
+- GitHub:   [@jubaan](https://www.github.com/jubaan)
+- Twitter:   [@jubaan](https://www.twitter.com/AnoverosJulio)
+- E-mail:   julio.ab@outlook.com
+
+**Manuel Rodriguez**
+
+- LinkedIn: [@manuelrodgzz](https://www.linkedin.com/in/manuelrodgzz/)
+- GitHub:   [@manuelrodgzz](https://github.com/manuelrodgzz)
+- E-mail:   marg.2197@gmail.com
+
+**Francisco Martinez**
+
+- LinkedIn: [@jofranmtz](http://linkedin.com/in/jofranmtz)
+- GitHub:   [@fmartinez-enr](https://github.com/fmartinez-enr)
+- E-mail:   jofranmtzsalgado@gmail.com
+
+Project Link: [Employee CSV Express](https://github.com/enroutesystems/epmloyee-csv-express)
+
+<!-- ACKNOWLEDGEMENTS -->
+## Acknowledgements
+* [Enroute](https://www.enroutesystems.com)
+* [Rodrigo Rodriguez](https://www.github.com/roier-rodriguez) | Enroute Systems
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[rockstars-shield]: https://img.shields.io/badge/Rockstar%20G5-Enroute-yellow?style=for-the-badge
+[rockstars-url]: https://www.enroutesystems.com
+[contributors-shield]: https://img.shields.io/github/contributors/enroutesystems/online-form-builder.svg?
+style=for-the-badge
+[contributors-url]: https://github.com/enroutesystems/online-form-builder/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/enroutesystems/online-form-builder.svg?style=for-the-badge
+[forks-url]: https://github.com/enroutesystems/online-form-builder/network/members
+[stars-shield]: https://img.shields.io/github/stars/enroutesystems/online-form-builder.svg?style=for-the-badge
+[stars-url]: https://github.com/enroutesystems/online-form-builder/stargazers
+[issues-shield]: https://img.shields.io/github/issues/enroutesystems/online-form-builder.svg?style=for-the-badge
+[issues-url]: https://github.com/enroutesystems/online-form-builder/issues
+[license-shield]: https://img.shields.io/badge/license-MIT-orange?style=for-the-badge
+[license-url]: https://github.com/enroutesystems/online-form-builder/blob/main/LICENSE.md
+[product-screenshot]: ./images/screenshot.png
