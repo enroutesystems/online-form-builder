@@ -13,7 +13,7 @@ export default class UrlInput extends Component {
   render() {
     return (
         <label>http://
-          <input
+          <input class="px-3 mx-3 rounded"
             disabled={this.props.disabled}
             onKeyUp={this.handleKeyUp}
             value={this.props.children}

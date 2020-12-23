@@ -16,10 +16,12 @@ export default class RadioOptions extends Component {
   render() {
     return (
       this.props.radioOptions.map(option => (
+        <>
         <label key={option.optionAnswerId}>
           <Radio name={this.props.formId + this.props.questionNumber} onChange={this.handleChange} optionAnswerId={option.optionAnswerId}/>
           {option.text}
-        </label>
+        </label><br />
+        </>
       ))
     );
   }
