@@ -46,7 +46,7 @@ export default class Welcome extends Component {
           <div>
             <h2>Engange your Audience</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet asperiores assumenda consequuntur dolorum incidunt laboriosam nihil, tempore unde vel vero! Deserunt excepturi illo inventore quae saepe! Debitis eum ipsa totam.</p>
-            <a href="/api/auth/login" className={styles.btn}>Get started!</a>
+            <a href="/api/auth/signin" className={styles.btn}>Get started!</a>
           </div>
           <img src={this.state.photo}/>
         </div>
