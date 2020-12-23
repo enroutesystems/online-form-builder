@@ -165,8 +165,7 @@ Project Link: [Employee CSV Express](https://github.com/enroutesystems/epmloyee-
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [rockstars-shield]: https://img.shields.io/badge/Rockstar%20G5-Enroute-yellow?style=for-the-badge
 [rockstars-url]: https://www.enroutesystems.com
-[contributors-shield]: https://img.shields.io/github/contributors/enroutesystems/online-form-builder.svg?
-style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/enroutesystems/online-form-builder.svg?style=for-the-badge
 [contributors-url]: https://github.com/enroutesystems/online-form-builder/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/enroutesystems/online-form-builder.svg?style=for-the-badge
 [forks-url]: https://github.com/enroutesystems/online-form-builder/network/members
