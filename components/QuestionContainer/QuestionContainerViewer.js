@@ -5,6 +5,7 @@ import TextInput from '../TextInput/TextInput.viewer'
 import TextArea from '../Textarea/Textarea.viewer'
 import LinkInput from '../LinkInput/LinkInput.viewer'
 import Range from '../Range/Range.viewer'
+import FileUploader from '../fileUploader'
 
 const QuestionContainerViewer = ({formId, question, onAnswerSelected}) => {
 
@@ -38,7 +39,7 @@ const QuestionContainerViewer = ({formId, question, onAnswerSelected}) => {
                 return <MapViewer onPointAdded={handleAnswer}/>
 
             case questionTypes.file:
-                return <p>File Uploader</p>
+                return <FileUploader onFileSelected={handleAnswer}/>
         }
 
     }

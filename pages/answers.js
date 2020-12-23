@@ -3,6 +3,7 @@ import OpenAnswer from '../components/AnswerDisplay/OpenAnswer'
 import LinkAnswer from '../components/AnswerDisplay/LinkAnswer'
 import MapAnswer from '../components/AnswerDisplay/MapAnswer'
 import OptionAnswer from '../components/AnswerDisplay/OptionAnswer'
+import FileAnswer from '../components/AnswerDisplay/FileAnswer'
 import questionTypes from '../helpers/questionTypes'
 
 function Answers({data}) {
@@ -78,6 +79,9 @@ function Answers({data}) {
                 </div>
                 {getQuestions().map((question, index) => {
                     const filteredResponses = data.responses.filter(response => response.question.questionId === question.questionId)
+
+                    if(questionTypes.file === question.type)
+                        return <FileAnswer key={`QuestionAnswer ${question.questionId}`} responses={filteredResponses}/>
 
                     if([questionTypes.singleLineText, questionTypes.multipleLineText].includes(question.type))
                         return <OpenAnswer key={`QuestionAnswer ${question.questionId}`} responses={filteredResponses}/>
