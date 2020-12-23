@@ -11,7 +11,8 @@ const LinkAnswer = ({responses}) => {
                         <div key={response.question.quiestionId + response.user.email + index}>
                             {response.response.map(link => (
                                 <div>
-                                    <a key={'link' + response.question.quiestionId + response.user.email + link.index} href={`//${link.text}`} className="font-semibold">
+                                    <a key={'link' + response.question.quiestionId + response.user.email + link.index} 
+                                    href={`//${link.text}`} target='_blank' className="font-semibold underline text-blue-600">
                                         {link.text.slice(2)}
                                     </a>
                                     <span className="text-gray ml-3 text-gray-500 italic">

@@ -15,7 +15,7 @@ const FileAnswers = ({responses}) => {
                             <ul>
                             {response.response.map(link => (
                                 <li>
-                                    <a className='underline text-blue-600' href={link}>
+                                    <a className='underline text-blue-600' target='_blank' href={link}>
                                         {link.split('/')[7].split('?')[0].replace('%20',' ')}
                                     </a>
                                 </li>
