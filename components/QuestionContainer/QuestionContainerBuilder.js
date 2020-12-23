@@ -6,6 +6,7 @@ import TextArea from '../Textarea/Textarea.viewer'
 import Range from '../Range/Range.builder'
 import questionTypes from '../../helpers/questionTypes'
 import LinkInputBuilder from '../LinkInput/LinkInput.builder'
+import FileUploader from '../fileUploader'
 
 const answerTypeOptions = Object.values(questionTypes)
 
@@ -95,7 +96,7 @@ const QuestionContainerBuilder = ({type, text, options, range, onQuestionChange}
                 return <MapBuilder/>
 
             case questionTypes.file:
-                return <p>File Uploader</p>
+                return <FileUploader disabled={true} onFileSelected={() => {}}/>
         }
     }
 

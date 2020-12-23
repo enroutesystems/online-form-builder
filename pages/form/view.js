@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import {useState} from 'react'
 import api from '../../helpers/api'
 import QuestionContainerViewer from '../../components/QuestionContainer/QuestionContainerViewer'
@@ -5,6 +6,8 @@ import {getSession} from 'next-auth/client'
 import alert from '../../helpers/alert'
 import questionTypes from '../../helpers/questionTypes'
 import {MoonLoader} from 'react-spinners'
+import firebase from '../../firebaseConfig.client'
+import 'firebase/storage'
 
 const FormView = ({data, user}) => {
 
@@ -33,17 +36,32 @@ const FormView = ({data, user}) => {
         }
     }
 
-    const getAnswersParam = () => {
+    const getAnswersParam = async() => {
         const arrayAnswers = []
         for(let answerIdx in answers){
 
             let answerObject = {questionId: data.result.questions[answerIdx].questionId}
 
-            //if answer has type single-line-text, multiple-line-text or range
-            if(questionTypes.multiOptions === data.result.questions[answerIdx].type)
-                answerObject.optionAnswerId = answers[answerIdx].value
-            else
-                answerObject.response = answers[answerIdx].value
+            if(questionTypes.file === data.result.questions[answerIdx].type){
+                const storageRef = firebase.storage().ref()
+                answerObject.response = []
+
+                for(let i = 0; i < answers[answerIdx].value.length; i++){
+                    try{
+                        const snapshot = await storageRef.child('' + Date.now() + answers[answerIdx].value[i].name).put(answers[answerIdx].value[i])
+                        answerObject.response.push(await (await snapshot.task).ref.getDownloadURL())
+                    }
+                    catch { return }
+                }
+            }
+            else{
+
+                //if answer has type single-line-text, multiple-line-text or range
+                if(questionTypes.multiOptions === data.result.questions[answerIdx].type)
+                    answerObject.optionAnswerId = answers[answerIdx].value
+                else
+                    answerObject.response = answers[answerIdx].value
+            }
 
             arrayAnswers.push(answerObject)
         }
@@ -62,8 +80,14 @@ const FormView = ({data, user}) => {
             return
         }
 
-        const arrayAnswers = getAnswersParam()
+        const arrayAnswers = await getAnswersParam()
 
+        if(!arrayAnswers){
+            alert.error('Error while trying to upload files to database')
+            setIsFetching(false)
+            return
+        }
+        
         let response
         try{
             response = await api.post('/api/form/answers/send', {
@@ -115,6 +139,11 @@ const FormView = ({data, user}) => {
 
     return(
         <div className='mx-52 place-content-center'>
+            <Head>
+              <title>Formify | Form View</title>
+              <link rel="icon" href="/formify.ico" />
+              <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+            </Head>
            <h1 className='font-bold text-3xl text-center mb-6'>{data.result ? data.result.formName : ''}</h1>
             {!formCompleted
                 ? renderQuestions()
@@ -141,8 +170,6 @@ export async function getServerSideProps(context){
 
     if(session)
         props.user = session.user
-
-    console.log(props)
 
     return{
         props

@@ -150,7 +150,7 @@ export const sendAnswers = async(formId, uid, answers) => {
 
     const form =  await (await firestore.collection(collections.forms).doc(formId).get()).data()
 
-    
+    console.log('ANSWERS',answers)
     const validation = validateAnswers(answers)
     
     const allowedUser = await isAllowedToAnswer(form, formId, uid)
