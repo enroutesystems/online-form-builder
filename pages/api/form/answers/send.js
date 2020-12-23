@@ -13,7 +13,7 @@ export default async(req,res) => {
             message: 'answers are required'
         })
     }
-
+    console.log('aNswers', answers)
     const result = await sendAnswers(formId, uid, answers)
 
     res.statusCode = result.message ? 400 : 200

@@ -1,8 +1,10 @@
+import Head from 'next/head'
 import api from '../helpers/api'
 import OpenAnswer from '../components/AnswerDisplay/OpenAnswer'
 import LinkAnswer from '../components/AnswerDisplay/LinkAnswer'
 import MapAnswer from '../components/AnswerDisplay/MapAnswer'
 import OptionAnswer from '../components/AnswerDisplay/OptionAnswer'
+import FileAnswer from '../components/AnswerDisplay/FileAnswer'
 import questionTypes from '../helpers/questionTypes'
 
 function Answers({data}) {
@@ -40,6 +42,11 @@ function Answers({data}) {
     }
 
     return <div>
+        <Head>
+            <title>Formify | Answers</title>
+            <link rel="icon" href="/formify.ico" />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+        </Head>
         <div className="flex items-center justify-center">
             <div className="flex justify-center flex-col items-center w-full">
                 <div className="bg-gray-900 w-full flex items-center justify-center py-8">
@@ -66,9 +73,6 @@ function Answers({data}) {
                                             <p className="font-semibold">
                                                 {email}
                                             </p>
-                                            <a href="#/" className="text-blue-400">
-                                                View answers
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -78,6 +82,9 @@ function Answers({data}) {
                 </div>
                 {getQuestions().map((question, index) => {
                     const filteredResponses = data.responses.filter(response => response.question.questionId === question.questionId)
+
+                    if(questionTypes.file === question.type)
+                        return <FileAnswer key={`QuestionAnswer ${question.questionId}`} responses={filteredResponses}/>
 
                     if([questionTypes.singleLineText, questionTypes.multipleLineText].includes(question.type))
                         return <OpenAnswer key={`QuestionAnswer ${question.questionId}`} responses={filteredResponses}/>
