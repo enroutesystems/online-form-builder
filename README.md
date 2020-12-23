@@ -59,9 +59,17 @@
 [![Product Name Screen Shot][product-screenshot]](https://formify.enroutesystes.com)
 
 Required features:
-- Http routing.
-- Return the employee's information that match the query.
-
+- App should let the user Create Forms
+- Each form should been able to contain multiple questions
+  - Questions with text as response
+  - Questions with options
+  - Questions with map as response
+  - With file as response (multiple)
+  - With link (multiple)
+  - With range (i.e. between 1 to 5)
+- Allows to limit question by time and responses.
+- Allows identified and non identified users to answer the questionare.  
+- Each form should save its answers in the database.
 
 ### Built With
 
@@ -109,15 +117,13 @@ installations.
 ## Roadmap
 
 See the [open issues](https://github.com/enroutesystems/online-form-builder/issues) for a list of proposed features 
-(and 
-known 
-issues).
+(and known issues).
 
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to 
-be learn, inspire, and create. Any contributions you make are 
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any 
+contributions you make are 
 **greatly appreciated**.
 
 1. Fork the Project
@@ -129,8 +135,7 @@ be learn, inspire, and create. Any contributions you make are
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See [LICENSE](https://github.
-com/enroutesystems/online-form-builder/blob/online-form-builder/MIT_LICENSE.md) for more information.
+Distributed under the MIT License. See [LICENSE](https://github.com/enroutesystems/online-form-builder/blob/online-form-builder/MIT_LICENSE.md)  for more information.
 
 <!-- CONTACT -->
 ## Contact
