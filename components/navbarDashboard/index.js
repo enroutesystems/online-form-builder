@@ -14,7 +14,7 @@ export default function NavbarDashboard() {
 
     return(
         <nav className="col-auto flex items-center justify-between px-8 py-3 border-b border-gray-200">
-          <a className={`${styles["d-flex"]} ${styles.brand}`} href="">
+          <a className={`${styles["d-flex"]} ${styles.brand}`} href={process.env.NEXT_PUBLIC_HOST}>
             <img src="https://img.icons8.com/ios/50/000000/test.png"/>
             Formify
           </a>

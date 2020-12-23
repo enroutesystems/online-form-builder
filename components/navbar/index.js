@@ -10,7 +10,7 @@ export default function Navbar() {
   return(
     <nav className={`${styles["d-flex"]} ${styles.nav}`}>
       <div className={`${styles["d-flex"]} ${styles.container}`}>
-        <a className={`${styles["d-flex"]} ${styles.brand}`} href="">
+        <a className={`${styles["d-flex"]} ${styles.brand}`} href={process.env.NEXT_PUBLIC_HOST}>
           <img src="https://img.icons8.com/ios/50/000000/test.png"/>
           Formify
         </a>
