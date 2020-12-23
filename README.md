@@ -8,7 +8,7 @@
 
 <br />
 <p align="center">
-  <a href="https://github.com/enroutesystems1/online-form-builder">
+  <a href="https://github.com/enroutesystems/online-form-builder">
     <img src="./public/enroute.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -20,7 +20,7 @@
     <a href="https://github.com/enroutesystems/online-form-builder"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://formify.enroutesystes.com">View Demo</a>
+    <a href="https://formify.enroutesystems.com">View Demo</a>
     ·
     <a href="https://github.com/enroutesystems/online-form-builder/issues">Report Bug</a>
     ·
