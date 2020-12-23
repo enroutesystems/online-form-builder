@@ -57,7 +57,7 @@ export default class LinkInputBuilder extends Component {
     return(
       <div>
         {this.state.linkCounter.map((value, index) => (
-          <div class="mb-2" key={index}>
+          <div className="mb-2" key={index}>
             <UrlInput onKeyUp={(e) => this.handleKeyUp(e, value, index)}/>
             {index >= 1 ? <button className="rounded bg-red-500 text-white text-lg h-8 px-2 text-center hover:bg-red-600 cursor-pointer" onClick={() => {this.removeOption(index)}}>Remove URL</button> : null}
           </div>
